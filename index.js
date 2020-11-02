@@ -20,10 +20,10 @@ require("./middlewares/passport")(passport);
 
 // User Router Middleware
 app.use("/api/users", require("./routes/users"));
-app.use("/api/drivers", require("./routes/drivers"));
-app.use("/api/conductors", require("./routes/conductors"));
-app.use("/api/students", require("./routes/students"));
-app.use("/api/buses", require("./routes/buses"));
+app.use("/api/drivers", require("./routes/Admin/drivers"));
+app.use("/api/conductors", require("./routes/Admin/conductors"));
+app.use("/api/students", require("./routes/Admin/students"));
+app.use("/api/buses", require("./routes/Admin/buses"));
 // app.use("/api/todo"), require("./routes/todo")
 // app.use("/api/routes", require("./routes/routes"));
 // app.use("/api/stops", require("./routes/stops"));

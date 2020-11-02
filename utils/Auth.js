@@ -90,7 +90,7 @@ const userLogin = async (userCreds, role, res) => {
       username: user.username,
       role: user.role,
       email: user.email,
-      token: `Bearer ${token}`,
+      token: token,
       expiresIn: 168,
     };
 
