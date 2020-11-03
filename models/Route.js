@@ -36,4 +36,4 @@ function validateRoute(route) {
 }
 
 exports.Route = Route; 
-exports.validate = validateBus;
+exports.validate = validateRoute;

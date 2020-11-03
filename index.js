@@ -25,7 +25,7 @@ app.use("/api/admin/conductors", require("./routes/Admin/conductors"));
 app.use("/api/admin/students", require("./routes/Admin/students"));
 app.use("/api/admin/buses", require("./routes/Admin/buses"));
 app.use("/api/drivers", require("./routes/Driver/routes"));
-app.use("/api/admin/routes"), require("./routes/Admin/routes");
+app.use("/api/admin/routes", require("./routes/Admin/routes"));
 // app.use("/api/routes", require("./routes/routes"));
 // app.use("/api/stops", require("./routes/stops"));
 
