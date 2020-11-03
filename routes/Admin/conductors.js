@@ -62,9 +62,9 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const conductor = await conductor.findById(req.params.id).select("-__v");
+  const conductor = await Conductor.findById(req.params.id).select("-__v");
 
-  if (!Conductor)
+  if (!conductor)
     return res
       .status(404)
       .send("The conductor with the given ID was not found.");

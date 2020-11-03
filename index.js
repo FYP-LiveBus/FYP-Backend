@@ -19,11 +19,12 @@ app.use(passport.initialize());
 require("./middlewares/passport")(passport);
 
 // User Router Middleware
-app.use("/api/users", require("./routes/users"));
-app.use("/api/drivers", require("./routes/Admin/drivers"));
-app.use("/api/conductors", require("./routes/Admin/conductors"));
-app.use("/api/students", require("./routes/Admin/students"));
-app.use("/api/buses", require("./routes/Admin/buses"));
+app.use("/api/users", require("./routes/users")); // login / resgistration
+app.use("/api/admin/driver", require("./routes/Admin/drivers"));
+app.use("/api/admin/conductors", require("./routes/Admin/conductors"));
+app.use("/api/admin/students", require("./routes/Admin/students"));
+app.use("/api/admin/buses", require("./routes/Admin/buses"));
+app.use("/api/drivers", require("./routes/Driver/routes"));
 // app.use("/api/todo"), require("./routes/todo")
 // app.use("/api/routes", require("./routes/routes"));
 // app.use("/api/stops", require("./routes/stops"));

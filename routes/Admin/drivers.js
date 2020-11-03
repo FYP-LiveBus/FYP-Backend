@@ -62,9 +62,9 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const driver = await driver.findById(req.params.id).select("-__v");
+  const driver = await Driver.findById(req.params.id).select("-__v");
 
-  if (!Driver)
+  if (!driver)
     return res
       .status(404)
       .send("The driver with the given ID was not found.");
