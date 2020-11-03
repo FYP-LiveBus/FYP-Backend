@@ -1,9 +1,10 @@
-const { array } = require('joi');
+// const { array } = require('joi');
 const mongoose = require('mongoose');
+const {locationSchema} = require("../models/Location")
 
 const Route = mongoose.model('Route', new mongoose.Schema({
   title: {
-    type: Number,
+    type: String,
     required: true,
   },
   description: {
@@ -11,10 +12,11 @@ const Route = mongoose.model('Route', new mongoose.Schema({
       required: true,
   },
   stops: [
-    { 
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'location',
-    }
+    // { 
+    //   type: locationSchema,
+      
+    // }
+locationSchema
   ],
   status: {
     type: String,

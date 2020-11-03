@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
 mongoose.set('useCreateIndex', true);

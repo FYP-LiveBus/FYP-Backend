@@ -1,9 +1,8 @@
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
-var autoIncrement = require('mongoose-auto-increment');
-mongoose.set('useCreateIndex', true);
+const mongoose = require("mongoose");
+// var autoIncrement = require('mongoose-auto-increment');
+// mongoose.set('useCreateIndex', true);
 
-let Location = new Schema({
+const locationSchema = new mongoose.Schema({
     location_name: {
         type: String,
         default: null
@@ -37,12 +36,19 @@ let Location = new Schema({
         default: Date.now
     }
 });
-autoIncrement.initialize(mongoose.connection);
-Location.plugin(autoIncrement.plugin, {
-    model: 'Location',
-    field: '_id',
-    startAt: 1,
-    incrementBy: 1
-});
-export default mongoose.model("Location", Location);
 
+
+const Location = mongoose.model('Location', locationSchema); 
+// autoIncrement.initialize(mongoose.connection);
+// Location.plugin(autoIncrement.plugin, {
+//     model: 'Location',
+//     field: '_id',
+//     startAt: 1,
+//     incrementBy: 1
+// });
+
+
+exports.Location = Location; 
+exports.locationSchema = locationSchema;
+
+//exports.validate = validateDriver;

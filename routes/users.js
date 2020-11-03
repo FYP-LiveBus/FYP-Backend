@@ -40,15 +40,23 @@ router.post("/login-admin", async (req, res) => {
   await userLogin(req.body, "admin", res);
 });
 
+// Driver Login Route
+router.post("/login-driver", async (req, res) => {
+  await userLogin(req.body, "driver", res);
+});
+
+// Sub Admin Login Route
+router.post("/login-subadmin", async (req, res) => {
+  await userLogin(req.body, "subadmin", res);
+});
+
+
 // Profile Route
 router.get("/profile", userAuth, async (req, res) => {
   return res.json(serializeUser(req.user));
 });
 
-// Driver Login Route
-router.post("/login-driver", async (req, res) => {
-  await userLogin(req.body, "driver", res);
-});
+
 
 
 // Stduent Protected Route

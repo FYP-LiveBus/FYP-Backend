@@ -30,12 +30,13 @@ const userRegister = async (userDets, role, res) => {
     // Get the hashed password
     const password = await bcrypt.hash(userDets.password, 12);
     // create a new user
+    
     const newUser = new User({
       ...userDets,
       password,
       role,
     });
-
+    
     await newUser.save();
     return res.status(201).json({
       message: "Hurry! now you are successfully registred. Please now login.",
@@ -87,9 +88,12 @@ const userLogin = async (userCreds, role, res) => {
     );
 
     let result = {
+      firstname: user.firstname,
+      lastname: user.lastname,
       username: user.username,
       role: user.role,
       email: user.email,
+      phonenumber: user.phonenumber,
       token: token,
       expiresIn: 168,
     };
@@ -132,9 +136,12 @@ const validateEmail = async (email) => {
 
 const serializeUser = (user) => {
   return {
+    firstname: user.firstname,
+    lastname: user.lastname,
     username: user.username,
+    role: user.role,
     email: user.email,
-    name: user.name,
+    phonenumber: user.phonenumber,
     _id: user._id,
     updatedAt: user.updatedAt,
     createdAt: user.createdAt,

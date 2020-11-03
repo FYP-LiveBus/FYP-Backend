@@ -1,12 +1,12 @@
 const { Route, validate } = require("../../models/Route");
 // const auth = require("../middleware/auth");
+const {Location} = require("../../models/Location")
 const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   const routes = await Route.find()
-    .select("-__v")
-    .sort("name");
+    .sort("title");
   res.send(routes);
 });
 
@@ -14,10 +14,24 @@ router.post("/", async (req, res) => {
   const error  = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
+  let loc = [];
+  req.body.stops.forEach(element => {
+    var l = new Location({
+        location_name: element.location_name,
+        location_type: element.location_type,
+        latitude: element.latitude,
+        longitude: element.longitude,
+        zip_code: element.zip_code,
+        status: element.status,
+    });
+    loc.push(l);
+  });
+
+  console.log(loc)
   let route = new Route({
     title: req.body.title,
     description: req.body.description,
-    stops: req.body.stops,
+    stops: loc,
     status: req.body.status
   });
   route = await route.save();
