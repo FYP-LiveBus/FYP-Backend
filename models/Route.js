@@ -12,11 +12,7 @@ const Route = mongoose.model('Route', new mongoose.Schema({
       required: true,
   },
   stops: [
-    // { 
-    //   type: locationSchema,
-      
-    // }
-locationSchema
+      locationSchema
   ],
   status: {
     type: String,
