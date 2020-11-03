@@ -8,19 +8,14 @@ const {
   serializeUser
 } = require("../utils/Auth");
 
-// Users Registeration Route
-router.post("/register-user", async (req, res) => {
-  await userRegister(req.body, "user", res);
+// Sudents Registeration Route
+router.post("/register-student", async (req, res) => {
+  await userRegister(req.body, "student", res);
 });
 
 // Admin Registration Route
 router.post("/register-admin", async (req, res) => {
   await userRegister(req.body, "admin", res);
-});
-
-// Super Admin Registration Route
-router.post("/register-super-admin", async (req, res) => {
-  await userRegister(req.body, "superadmin", res);
 });
 
 // Sub Admin Registration Route
@@ -29,9 +24,15 @@ router.post("/register-sub-admin", async (req, res) => {
 });
 
 
+// Driver Registration Route
+router.post("/register-driver", async (req, res) => {
+  await userRegister(req.body, "driver", res);
+});
+
+
 // Users Login Route
-router.post("/login-user", async (req, res) => {
-  await userLogin(req.body, "user", res);
+router.post("/login-student", async (req, res) => {
+  await userLogin(req.body, "student", res);
 });
 
 // Admin Login Route
@@ -39,23 +40,24 @@ router.post("/login-admin", async (req, res) => {
   await userLogin(req.body, "admin", res);
 });
 
-// Super Admin Login Route
-router.post("/login-super-admin", async (req, res) => {
-  await userLogin(req.body, "superadmin", res);
-});
-
 // Profile Route
 router.get("/profile", userAuth, async (req, res) => {
   return res.json(serializeUser(req.user));
 });
 
-// Users Protected Route
+// Driver Login Route
+router.post("/login-driver", async (req, res) => {
+  await userLogin(req.body, "driver", res);
+});
+
+
+// Stduent Protected Route
 router.get(
-  "/user-protectd",
+  "/student-protectd",
   userAuth,
-  checkRole(["user"]),
+  checkRole(["student"]),
   async (req, res) => {
-    return res.json("Hello User");
+    return res.json("Hello Student");
   }
 );
 
@@ -69,24 +71,24 @@ router.get(
   }
 );
 
-// Super Admin Protected Route
+// Driver Protected Route
 router.get(
-  "/super-admin-protectd",
+  "/driver-protectd",
   userAuth,
-  checkRole(["superadmin"]),
+  checkRole(["driver"]),
   async (req, res) => {
-    return res.json("Hello Super Admin");
+    return res.json("Hello Driver");
   }
 );
 
-// Super Admin Protected Route
-router.get(
-  "/super-admin-and-admin-protectd",
-  userAuth,
-  checkRole(["superadmin", "admin"]),
-  async (req, res) => {
-    return res.json("Super admin and Admin");
-  }
-);
+// // Super Admin Protected Route
+// router.get(
+//   "/super-admin-and-admin-protectd",
+//   userAuth,
+//   checkRole(["superadmin", "admin"]),
+//   async (req, res) => {
+//     return res.json("Super admin and Admin");
+//   }
+// );
 
 module.exports = router;
