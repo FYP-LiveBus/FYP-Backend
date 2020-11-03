@@ -7,7 +7,7 @@ router.get( "/profiles", userAuth, checkRole(["driver"]), async (req, res) => {
     }
 );
 
-router.get("")
+// router.get("")
 
 
 module.exports = router;
