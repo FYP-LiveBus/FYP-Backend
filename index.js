@@ -16,11 +16,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
 // Middlewares
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
-// app.use(cors());
+app.use(cors);
 app.use(bp.json());
 app.use(passport.initialize());
 
