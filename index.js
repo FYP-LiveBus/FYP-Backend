@@ -16,7 +16,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
 // Middlewares
-app.use(cors);
+app.use(cors());
 app.use(bp.json());
 app.use(passport.initialize());
 
