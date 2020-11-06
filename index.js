@@ -12,8 +12,8 @@ const { DB, PORT } = require("./config");
 const app = exp();
 
 // var app = require('express')();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+// var http = require('http').createServer(app);
+// var io = require('socket.io')(http);
 
 // Middlewares
 app.use(cors());
@@ -53,22 +53,22 @@ const startApp = async () => {
       success({ message: `Server started on PORT `, badge: true })
     );
     
-    io.on('connection', (socket) => {
-      io.clients((error, clients) => {
-        if (error) throw error;
-        console.log(clients); // => [6em3d4TJP8Et9EMNAAAA, G5p55dHhGgUnLUctAAAB]
-      });
+    // io.on('connection', (socket) => {
+    //   io.clients((error, clients) => {
+    //     if (error) throw error;
+    //     console.log(clients); // => [6em3d4TJP8Et9EMNAAAA, G5p55dHhGgUnLUctAAAB]
+    //   });
     
-      socket.on('position', (position) => {
-        // console.log('position with id -----------------\n', position)
-        socket.broadcast.emit('otherPositions', position);
-      })
+    //   socket.on('position', (position) => {
+    //     // console.log('position with id -----------------\n', position)
+    //     socket.broadcast.emit('otherPositions', position);
+    //   })
     
-      socket.on('disconnect', () => {
-        // console.log(`Connection ${socket.id} has left the building`)
-      })
+      // socket.on('disconnect', () => {
+      //   // console.log(`Connection ${socket.id} has left the building`)
+      // })
     
-    });
+    // });
   } catch (err) {
     error({
       message: `Unable to connect with Database \n${err}`,
