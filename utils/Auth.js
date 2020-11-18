@@ -88,6 +88,7 @@ const userLogin = async (userCreds, role, res) => {
     );
 
     let result = {
+      user_id: user._id,
       firstname: user.firstname,
       lastname: user.lastname,
       username: user.username,
