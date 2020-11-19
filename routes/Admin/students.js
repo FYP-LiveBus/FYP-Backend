@@ -34,7 +34,8 @@ router.put("/:id", async (req, res) => {
   const student = await Student.findByIdAndUpdate(
     req.params.id,
     {
-      name: req.body.name,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
