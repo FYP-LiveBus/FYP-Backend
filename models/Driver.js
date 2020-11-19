@@ -38,12 +38,6 @@ const Driver = mongoose.model('Driver', new mongoose.Schema({
   age: {
     type: Number,
   },
-  dateOfBirth:{
-    type: date
-  },
-  dateOfJoining:{
-    type: date
-  },
   city:{
     type: String,
     required: true,

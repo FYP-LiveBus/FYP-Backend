@@ -23,8 +23,6 @@ router.post("/", async (req, res) => {
     phone: req.body.phone,
     licensenumber: req.body.licensenumber,
     age: req.body.age,
-    dateOfBirth: req.body.dateOfBirth,
-    dateOfJoining: req.body.dateOfJoining,
     city: req.body.city,
     profilePicture: req.body.profilePicture,
   });
@@ -48,8 +46,6 @@ router.put("/:id", async (req, res) => {
       phone: req.body.phone,
       licensenumber: req.body.licensenumber,
       age: req.body.age,
-      dateOfBirth: req.body.dateOfBirth,
-      dateOfJoining: req.body.dateOfJoining,
       city: req.body.city,
       profilePicture: req.body.profilePicture,
     },
