@@ -36,6 +36,10 @@ const Student = mongoose.model('Student', new mongoose.Schema({
     required: true,
     minlength: 5,
     maxlength: 50
+  },
+  registrationNo:{
+    type: String,
+    required: true,
   }
 }));
 

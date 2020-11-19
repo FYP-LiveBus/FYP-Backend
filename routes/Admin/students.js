@@ -21,7 +21,8 @@ router.post("/", async (req, res) => {
     email: req.body.email,
     password: req.body.password,
     semester: req.body.semester,
-    phone: req.body.phone
+    phone: req.body.phone,
+    registrationNo: req.body.registrationNo
   });
   student = await student.save();
 
@@ -41,7 +42,8 @@ router.put("/:id", async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       semester: req.body.semester,
-      phone: req.body.phone
+      phone: req.body.phone,
+      registrationNo: req.body.registrationNo
     },
     { new: true }
   );
