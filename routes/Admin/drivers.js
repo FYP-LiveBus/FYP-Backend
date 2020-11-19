@@ -25,7 +25,8 @@ router.post("/", async (req, res) => {
     age: req.body.age,
     dateOfBirth: req.body.dateOfBirth,
     dateOfJoining: req.body.dateOfJoining,
-    city: req.body.city
+    city: req.body.city,
+    profilePicture: req.body.profilePicture,
   });
   driver = await driver.save();
 
@@ -49,7 +50,8 @@ router.put("/:id", async (req, res) => {
       age: req.body.age,
       dateOfBirth: req.body.dateOfBirth,
       dateOfJoining: req.body.dateOfJoining,
-      city: req.body.city
+      city: req.body.city,
+      profilePicture: req.body.profilePicture,
     },
     { new: true }
   );

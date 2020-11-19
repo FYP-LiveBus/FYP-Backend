@@ -47,6 +47,9 @@ const Driver = mongoose.model('Driver', new mongoose.Schema({
   city:{
     type: String,
     required: true,
+  },
+  profilePicture: {
+    type: String,
   }
 }));
 
