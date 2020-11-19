@@ -1,6 +1,7 @@
 const { Driver, validate } = require("../../models/Driver");
 // const auth = require("../middleware/auth");
 const express = require("express");
+const { userRegister } = require("../../utils/Auth");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -23,7 +24,8 @@ router.post("/", async (req, res) => {
   });
   driver = await driver.save();
 
-  res.send(driver);
+  // res.send(driver);
+  
 });
 
 router.put("/:id", async (req, res) => {
