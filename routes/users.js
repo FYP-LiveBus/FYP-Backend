@@ -20,7 +20,7 @@ router.post("/register-admin", async (req, res) => {
 });
 
 // Sub Admin Registration Route
-router.post("/register-sub-admin", async (req, res) => {
+router.post("/register-subadmin", async (req, res) => {
   await userRegister(req.body, "subadmin", res);
 });
 
@@ -80,7 +80,7 @@ router.put("/:id", async (req, res) => {
 });
 
 
-// Admin Route
+// Admins get Route
   router.get("/admins", async (req, res) => {
     const admins = await User.find({role: "admin"})
       .sort("name");
@@ -89,7 +89,7 @@ router.put("/:id", async (req, res) => {
   }
 );
 
-// SubAdmin Route
+// SubAdmins get Route
 router.get("/subadmins", async (req, res) => {
   const subadmins = await User.find({role: "subadmin"})
     .sort("name");
@@ -97,6 +97,20 @@ router.get("/subadmins", async (req, res) => {
   res.send(subadmins);
 }
 );
+
+// Admin and SubAdmin delete route by ID
+router.delete("/:id", async (req, res) => {
+  const user = await User.findByIdAndRemove(req.params.id);
+
+  if (!user)
+    return res
+      .status(404)
+      .send("The user with the given ID was not found.");
+
+  res.send(user);
+});
+
+
 
 
 // Stduent Protected Route
