@@ -2,17 +2,19 @@
 const mongoose = require('mongoose');
 
 const Conductor = mongoose.model('Conductor', new mongoose.Schema({
-  name: {
+  firstname: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 3,
+    maxlength: 50
+  },
+  lastname: {
+    type: String,
+    required: true,
+    minlength: 3,
     maxlength: 50
   },
   username: {
-    type: String,
-    required: true
-  },
-  password: { 
     type: String,
     required: true
   },

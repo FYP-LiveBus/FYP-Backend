@@ -2,19 +2,20 @@
 const mongoose = require('mongoose');
 
 const Driver = mongoose.model('Driver', new mongoose.Schema({
-  name: {
+  firstname: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 3,
+    maxlength: 50
+  },
+  lastname: {
+    type: String,
+    required: true,
+    minlength: 3,
     maxlength: 50
   },
   username: {
     type: String,
-    required: true
-},
-  email: {
-    type: String,
-    unique: true,
     required: true
   },
   password: { 
@@ -22,6 +23,12 @@ const Driver = mongoose.model('Driver', new mongoose.Schema({
     required: true
   },
   phone: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 50
+  },
+  licensenumber: {
     type: String,
     required: true,
     minlength: 5,

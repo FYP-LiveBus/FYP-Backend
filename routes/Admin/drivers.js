@@ -16,16 +16,17 @@ router.post("/", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let driver = new Driver({
-    name: req.body.name,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     username: req.body.username,
-    email: req.body.email,
     password: req.body.password,
-    phone: req.body.phone
+    phone: req.body.phone,
+    licensenumber: req.body.licensenumber,
   });
   driver = await driver.save();
 
-  // res.send(driver);
-  
+  res.send(driver);
+
 });
 
 router.put("/:id", async (req, res) => {
@@ -35,11 +36,12 @@ router.put("/:id", async (req, res) => {
   const driver = await Driver.findByIdAndUpdate(
     req.params.id,
     {
-      name: req.body.name,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
       username: req.body.username,
-      email: req.body.email,
       password: req.body.password,
-      phone: req.body.phone
+      phone: req.body.phone,
+      licensenumber: req.body.licensenumber,
     },
     { new: true }
   );

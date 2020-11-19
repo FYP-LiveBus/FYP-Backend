@@ -15,10 +15,9 @@ router.post("/", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let conductor = new Conductor({
-    name: req.body.name,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     username: req.body.username,
-    // email: req.body.email,
-    password: req.body.password,
     phone: req.body.phone
   });
   conductor = await conductor.save();
@@ -33,10 +32,9 @@ router.put("/:id", async (req, res) => {
   const conductor = await Conductor.findByIdAndUpdate(
     req.params.id,
     {
-      name: req.body.name,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
       username: req.body.username,
-      // email: req.body.email,
-      password: req.body.password,
       phone: req.body.phone
     },
     { new: true }
