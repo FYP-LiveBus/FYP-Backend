@@ -40,6 +40,10 @@ const Student = mongoose.model('Student', new mongoose.Schema({
   registrationNo:{
     type: String,
     required: true,
+  },
+  department:{
+    type: String,
+    required: true,
   }
 }));
 

@@ -22,7 +22,8 @@ router.post("/", async (req, res) => {
     password: req.body.password,
     semester: req.body.semester,
     phone: req.body.phone,
-    registrationNo: req.body.registrationNo
+    registrationNo: req.body.registrationNo,
+    department: req.body.department
   });
   student = await student.save();
 
