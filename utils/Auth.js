@@ -37,6 +37,7 @@ const userRegister = async (userDets, role, res) => {
       role,
     });
     
+    
     await newUser.save();
     return res.status(201).json({
       message: "Hurry! now you are successfully registred. Please now login.",

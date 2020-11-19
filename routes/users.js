@@ -80,6 +80,23 @@ router.put("/:id", async (req, res) => {
 });
 
 
+// Admin Route
+  router.get("/admins", async (req, res) => {
+    const admins = await User.find({role: "admin"})
+      .sort("name");
+    // console.log("Hello")
+    res.send(admins);
+  }
+);
+
+// SubAdmin Route
+router.get("/subadmins", async (req, res) => {
+  const subadmins = await User.find({role: "subadmin"})
+    .sort("name");
+  // console.log("Hello")
+  res.send(subadmins);
+}
+);
 
 
 // Stduent Protected Route

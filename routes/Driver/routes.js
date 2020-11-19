@@ -17,7 +17,4 @@ router.get("/get-routes", async (req, res) => {
 });
 
 
-// router.get("")
-
-
 module.exports = router;
