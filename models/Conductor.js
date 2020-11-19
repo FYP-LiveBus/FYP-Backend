@@ -23,6 +23,16 @@ const Conductor = mongoose.model('Conductor', new mongoose.Schema({
     required: true,
     minlength: 5,
     maxlength: 50
+  },
+  age:{
+    type: Number,
+  },
+  city:{
+    type: String,
+    required: true,
+  },
+  profilePicture:{
+    type: String,
   }
 }));
 

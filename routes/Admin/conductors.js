@@ -18,7 +18,10 @@ router.post("/", async (req, res) => {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     username: req.body.username,
-    phone: req.body.phone
+    phone: req.body.phone,
+    age: req.body.age,
+    city: req.body.city,
+    profilePicture: req.body.profilePicture
   });
   conductor = await conductor.save();
 
@@ -35,7 +38,10 @@ router.put("/:id", async (req, res) => {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       username: req.body.username,
-      phone: req.body.phone
+      phone: req.body.phone,
+      age: req.body.age,
+      city: req.body.city,
+      profilePicture: req.body.profilePicture
     },
     { new: true }
   );
