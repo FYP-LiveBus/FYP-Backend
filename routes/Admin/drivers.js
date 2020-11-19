@@ -22,6 +22,10 @@ router.post("/", async (req, res) => {
     password: req.body.password,
     phone: req.body.phone,
     licensenumber: req.body.licensenumber,
+    age: req.body.age,
+    dateOfBirth: req.body.dateOfBirth,
+    dateOfJoining: req.body.dateOfJoining,
+    city: req.body.city
   });
   driver = await driver.save();
 
@@ -42,6 +46,10 @@ router.put("/:id", async (req, res) => {
       password: req.body.password,
       phone: req.body.phone,
       licensenumber: req.body.licensenumber,
+      age: req.body.age,
+      dateOfBirth: req.body.dateOfBirth,
+      dateOfJoining: req.body.dateOfJoining,
+      city: req.body.city
     },
     { new: true }
   );

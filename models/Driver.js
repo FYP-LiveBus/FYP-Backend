@@ -1,4 +1,5 @@
 // const Joi = require('joi');
+const { date } = require('joi');
 const mongoose = require('mongoose');
 
 const Driver = mongoose.model('Driver', new mongoose.Schema({
@@ -33,6 +34,19 @@ const Driver = mongoose.model('Driver', new mongoose.Schema({
     required: true,
     minlength: 5,
     maxlength: 50
+  },
+  age: {
+    type: Number,
+  },
+  dateOfBirth:{
+    type: date
+  },
+  dateOfJoining:{
+    type: date
+  },
+  city:{
+    type: String,
+    required: true,
   }
 }));
 
