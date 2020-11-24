@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const error  = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-
+  console.log(req.body)
   let driver = new Driver({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
     profilePicture: req.body.profilePicture,
   });
   driver = await driver.save();
-
+  console.log(driver)
   res.send(driver);
 
 });

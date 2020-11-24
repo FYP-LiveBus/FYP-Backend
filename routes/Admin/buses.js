@@ -15,6 +15,7 @@ router.post("/", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let bus = new Bus({
+    busNo: req.body.busNo,
     busModel: req.body.busModel,
     modelYear: req.body.modelYear,
     manufacturer: req.body.manufacturer,
@@ -32,6 +33,7 @@ router.put("/:id", async (req, res) => {
   const bus = await Bus.findByIdAndUpdate(
     req.params.id,
     {
+      busNo: req.body.busNo,
       busModel: req.body.busModel,
       modelYear: req.body.modelYear,
       manufacturer: req.body.manufacturer,

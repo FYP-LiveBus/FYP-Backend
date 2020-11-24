@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 
 const Bus = mongoose.model('Bus', new mongoose.Schema({
-  busModel: {
+  busNo:{
     type: String,
     required: true,
+  },
+  busModel: {
+    type: String,
+    // required: true,
   },
   modelYear: {
     type: Number,
