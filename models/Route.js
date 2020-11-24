@@ -3,11 +3,15 @@ const mongoose = require('mongoose');
 const {locationSchema} = require("../models/Location")
 
 const Route = mongoose.model('Route', new mongoose.Schema({
-  title: {
+  routeNo:{
+    type: Number,
+    required: true
+  },
+  routeName: {
     type: String,
     required: true,
   },
-  description: {
+  startingPoint: {
       type: String,
       required: true,
   },

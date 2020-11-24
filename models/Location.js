@@ -50,5 +50,3 @@ const Location = mongoose.model('Location', locationSchema);
 
 exports.Location = Location; 
 exports.locationSchema = locationSchema;
-
-//exports.validate = validateDriver;

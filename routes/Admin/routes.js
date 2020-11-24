@@ -1,6 +1,6 @@
 const { Route, validate } = require("../../models/Route");
 // const auth = require("../middleware/auth");
-const {Location} = require("../../models/Location")
+const {Location} = require("../../models/Location");
 const express = require("express");
 const router = express.Router();
 
@@ -29,8 +29,9 @@ router.post("/", async (req, res) => {
 
   console.log(loc)
   let route = new Route({
-    title: req.body.title,
-    description: req.body.description,
+    routeNo: req.body.routeNo,
+    routeName: req.body.routeName,
+    startingPoint: req.body.startingPoint,
     stops: loc,
     status: req.body.status
   });
@@ -46,10 +47,11 @@ router.put("/:id", async (req, res) => {
   const route = await Route.findByIdAndUpdate(
     req.params.id,
     {
-        title: req.body.title,
-        description: req.body.description,
-        stops: req.body.stops,
-        status: req.body.status
+      routeNo: req.body.routeNo,
+      routeName: req.body.routeName,
+      startingPoint: req.body.startingPoint,
+      stops: req.body.stops,
+      status: req.body.status
     },
     { new: true }
   );
