@@ -20,7 +20,7 @@ const Route = mongoose.model('Route', new mongoose.Schema({
   ],
   status: {
     type: String,
-    enum: ['active', 'inactive'],
+    enum: ['Active', 'In-Active'],
     required: true
   }
 }));
