@@ -12,8 +12,8 @@ const Route = mongoose.model('Route', new mongoose.Schema({
     required: true,
   },
   startingPoint: {
-      type: String,
-      required: true,
+    type: String,
+    required: true,
   },
   stops: [
       locationSchema
@@ -21,6 +21,10 @@ const Route = mongoose.model('Route', new mongoose.Schema({
   status: {
     type: String,
     enum: ['Active', 'In-Active'],
+    required: true
+  },
+  driver:{
+    type: String,
     required: true
   }
 }));

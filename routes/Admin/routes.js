@@ -33,7 +33,8 @@ router.post("/", async (req, res) => {
     routeName: req.body.routeName,
     startingPoint: req.body.startingPoint,
     stops: loc,
-    status: req.body.status
+    status: req.body.status,
+    driver: req.body.driver
   });
   route = await route.save();
 
@@ -51,7 +52,8 @@ router.put("/:id", async (req, res) => {
       routeName: req.body.routeName,
       startingPoint: req.body.startingPoint,
       stops: req.body.stops,
-      status: req.body.status
+      status: req.body.status,
+      driver: req.body.driver
     },
     { new: true }
   );
