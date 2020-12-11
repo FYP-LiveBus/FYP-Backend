@@ -69,7 +69,7 @@ async function pushNotifications(req, res) {
                         },
                     });
                 });
-                return res.status(200).send({ message: "Notifications sent!" });
+                return ;
             } else {
                 return res.status(404).send({ message: "No users found" });
             }
