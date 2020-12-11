@@ -26,7 +26,7 @@ app.use("/api/admin/students", require("./routes/Admin/students"));
 app.use("/api/admin/buses", require("./routes/Admin/buses"));
 app.use("/api/drivers", require("./routes/Driver/routes"));
 app.use("/api/admin/routes", require("./routes/Admin/routes"));
-
+app.use("/api/admin/notifications", require("./routes/Admin/notifications"));
 
 const startApp = async () => {
   try {
@@ -47,7 +47,6 @@ const startApp = async () => {
       success({ message: `Server started on PORT `, badge: true })
     );
     
-
   } catch (err) {
     error({
       message: `Unable to connect with Database \n${err}`,
@@ -57,6 +56,5 @@ const startApp = async () => {
   }
 
 };
-
 
 startApp();
