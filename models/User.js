@@ -30,6 +30,9 @@ const UserSchema = new Schema(
     phonenumber: {
       type: String,
       required: false
+    },
+    city: {
+      type: String,
     }
   },
   { timestamps: true }
