@@ -4,22 +4,22 @@ const mongoose = require("mongoose");
 
 const locationSchema = new mongoose.Schema({
     location_no: {
-        type: Number,
+        type: mongoose.Decimal128,
     },
     location_name: {
         type: String,
         default: null
     },
     latitude: {
-        type: Number,
+        type: mongoose.Decimal128,
         default: 0
     },
     longitude: {
-        type: Number,
+        type: mongoose.Decimal128,
         default: 0
     },
     routeNo: {
-        type: Number,
+        type: mongoose.Decimal128,
     },
     status: {
         type: String,
