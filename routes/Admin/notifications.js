@@ -11,7 +11,7 @@ const { date } = require("joi");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://livebus-088091160.firebaseio.com"
-  });
+});
 
 router.get("/", async (req, res) => {
   const notificatons = await Notification.find()
@@ -19,7 +19,6 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-
   let notificaton = new Notification({
     subject: req.body.subject,
     message: req.body.message,
@@ -45,11 +44,12 @@ async function pushNotifications(req, res) {
             querySnapshot.forEach((doc) => {
                 let docData = doc.data();
                 if (docData && docData.token) {
-                    
+                    console.log(docData.token)
                     // The pushNotificationsToken retrieved from the app and stored in Firestore
                     // if (docData.token) {
                         notificationsArray.push({
                             to: docData.token,
+                            // to: ["ExponentPushToken[Pf4EQ7LW0HADk9NURogiHH]", "ExponentPushToken[O9PjY0KDJINiN3eP9go_kw]"],
                             title: data.subject,
                             body: data.message,
                         });
@@ -59,15 +59,18 @@ async function pushNotifications(req, res) {
                 
                 // Send notifications to 100 users at a time (the maximum number that one Expo push request supports)
                 let notificationsChunks = chunkArray(notificationsArray, 100);
-                notificationsChunks.map((chunk) => {
-                    axios({
+                notificationsChunks.map( async (chunk) => {
+                    console.log(chunk)
+                    await axios({
                         method: "post",
                         url: "https://exp.host/--/api/v2/push/send",
                         data: chunk,
                         headers: {
                             "Content-Type": "application/json",
                         },
-                    });
+                    })
+                    // .then(res=>console.log(res))
+                    // .catch(error => console.log(error) );
                 });
                 return ;
             } else {
