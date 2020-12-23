@@ -34,7 +34,8 @@ router.post("/", async (req, res) => {
     startingPoint: req.body.startingPoint,
     stops: loc,
     status: req.body.status,
-    // driver: req.body.driver
+    driver: req.body.driver,
+    noOfStops: req.body.noOfStops
   });
   route = await route.save();
 

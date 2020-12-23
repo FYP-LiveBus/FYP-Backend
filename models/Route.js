@@ -23,10 +23,14 @@ const Route = mongoose.model('Route', new mongoose.Schema({
     enum: ['Active', 'In-Active'],
     required: true
   },
-  // driver:{
-  //   type: String,
-  //   required: true
-  // }
+  driver:{
+    type: String,
+    required: true
+  },
+  noOfStops: {
+    type: Number,
+    required: true
+  }
 }));
 
 function validateRoute(route) {
