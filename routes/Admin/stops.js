@@ -14,8 +14,8 @@ router.post("/", async (req, res) => {
   let stop = new Stop({
     stopNo: req.body.stopNo,
     stopName: req.body.stopName,
-    latitude: req.body.latitude,
-    longitude: req.body.longitude,
+    latitude: req.body.latitude.$numberDecimal,
+    longitude: req.body.longitude.$numberDecimal,
     status: req.body.status,
   });
   stop = await stop.save();
