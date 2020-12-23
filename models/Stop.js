@@ -18,7 +18,7 @@ const stopSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: 'Active',
+        default: 'In-Active',
     },
     // created_at: {
     //     type: Date,
