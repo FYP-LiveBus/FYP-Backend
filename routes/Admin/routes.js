@@ -17,6 +17,7 @@ router.post("/", async (req, res) => {
   let loc = [];
   req.body.stops.forEach(element => {
     var l = new Location({
+        location_no: element.location_no,
         location_name: element.location_name,
         // location_type: element.location_type,
         latitude: element.latitude,

@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 // mongoose.set('useCreateIndex', true);
 
 const locationSchema = new mongoose.Schema({
+    location_no: {
+        type: Number,
+    },
     location_name: {
         type: String,
         default: null

@@ -13,6 +13,7 @@ router.post("/", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let location = new Location({
+    location_no: req.body.location_no,
     location_name: req.body.location_name,
     latitude: req.body.latitude,
     longitude: req.body.longitude,
@@ -31,6 +32,7 @@ router.put("/:id", async (req, res) => {
   const location = await Location.findByIdAndUpdate(
     req.params.id,
     {
+        location_no: req.body.location_no,
         location_name: req.body.location_name,
         latitude: req.body.latitude,
         longitude: req.body.longitude,
