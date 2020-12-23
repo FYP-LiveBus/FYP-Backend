@@ -18,10 +18,10 @@ router.post("/", async (req, res) => {
   req.body.stops.forEach(element => {
     var l = new Location({
         location_name: element.location_name,
-        location_type: element.location_type,
+        // location_type: element.location_type,
         latitude: element.latitude,
         longitude: element.longitude,
-        zip_code: element.zip_code,
+        routeNo: element.routeNo,
         status: element.status,
     });
     loc.push(l);
@@ -52,7 +52,7 @@ router.put("/:id", async (req, res) => {
       routeNo: req.body.routeNo,
       routeName: req.body.routeName,
       startingPoint: req.body.startingPoint,
-      stops: req.body.stops,
+      stops: loc,
       status: req.body.status,
       // driver: req.body.driver
     },

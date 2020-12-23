@@ -7,10 +7,6 @@ const locationSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    location_type:{
-        type:String,
-        default: null
-    },
     latitude: {
         type: Number,
         default: 0
@@ -19,9 +15,8 @@ const locationSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    zip_code: {
+    routeNo: {
         type: Number,
-        default: 0
     },
     status: {
         type: String,
