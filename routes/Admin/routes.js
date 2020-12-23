@@ -1,6 +1,6 @@
 const { Route, validate } = require("../../models/Route");
 // const auth = require("../middleware/auth");
-const {Location} = require("../../models/Location");
+const {Location} = require("../../models/Stop");
 const express = require("express");
 const router = express.Router();
 
@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
     loc.push(l);
   });
 
-  console.log(loc)
+  console.log(req.body)
   let route = new Route({
     routeNo: req.body.routeNo,
     routeName: req.body.routeName,

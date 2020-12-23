@@ -1,6 +1,6 @@
 // const { array } = require('joi');
 const mongoose = require('mongoose');
-const {locationSchema} = require("../models/Location")
+const {stopSchema} = require("./Stop")
 
 const Route = mongoose.model('Route', new mongoose.Schema({
   routeNo:{
@@ -16,7 +16,7 @@ const Route = mongoose.model('Route', new mongoose.Schema({
     required: true,
   },
   stops: [
-      locationSchema
+      stopSchema
   ],
   status: {
     type: String,
