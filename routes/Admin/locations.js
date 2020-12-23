@@ -3,8 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const locations = await Location.find()
-    .sort("title");
+  const locations = await Location.find();
   res.send(locations);
 });
 
