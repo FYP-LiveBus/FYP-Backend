@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const locationSchema = new mongoose.Schema({
     location_no: {
-        type: mongoose.Decimal128,
+        type: Number,
     },
     location_name: {
         type: String,
@@ -19,7 +19,7 @@ const locationSchema = new mongoose.Schema({
         default: 0
     },
     routeNo: {
-        type: mongoose.Decimal128,
+        type: Number,
     },
     status: {
         type: String,
