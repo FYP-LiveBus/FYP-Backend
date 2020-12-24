@@ -20,14 +20,14 @@ const stopSchema = new mongoose.Schema({
         type: String,
         default: 'In-Active',
     },
-    // created_at: {
-    //     type: Date,
-    //     default: Date.now
-    // },
-    // updated_at: {
-    //     type: Date,
-    //     default: Date.now
-    // }
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 
