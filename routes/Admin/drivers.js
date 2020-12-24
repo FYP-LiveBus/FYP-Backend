@@ -11,6 +11,12 @@ router.get("/", async (req, res) => {
   res.send(drivers);
 });
 
+router.get("/getTotal", async (req, res) => {
+  const drivers = await Driver.find().countDocuments();
+  res.send(JSON.stringify(drivers));
+});
+
+
 router.post("/", async (req, res) => {
   const error  = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);

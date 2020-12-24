@@ -10,6 +10,12 @@ router.get("/", async (req, res) => {
   res.send(buses);
 });
 
+router.get("/getTotal", async (req, res) => {
+  const buses = await Bus.find().countDocuments();
+  res.send(JSON.stringify(buses));
+});
+
+
 router.post("/", async (req, res) => {
   const error  = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
