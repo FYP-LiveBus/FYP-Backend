@@ -17,13 +17,11 @@ router.post("/", async (req, res) => {
   let loc = [];
   req.body.stops.forEach(element => {
     var l = new Location({
-        location_no: element.location_no,
-        location_name: element.location_name,
-        // location_type: element.location_type,
-        latitude: element.latitude,
-        longitude: element.longitude,
-        routeNo: element.routeNo,
-        status: element.status,
+      stopNo: element.stopNo,
+      stopName: element.stopName,
+      latitude: element.latitude,
+      longitude: element.longitude,
+      status: element.status,
     });
     loc.push(l);
   });
@@ -35,8 +33,6 @@ router.post("/", async (req, res) => {
     startingPoint: req.body.startingPoint,
     stops: loc,
     status: req.body.status,
-    driver: req.body.driver,
-    noOfStops: req.body.noOfStops
   });
   route = await route.save();
 
@@ -55,7 +51,6 @@ router.put("/:id", async (req, res) => {
       startingPoint: req.body.startingPoint,
       stops: loc,
       status: req.body.status,
-      // driver: req.body.driver
     },
     { new: true }
   );
