@@ -9,6 +9,10 @@ const Notification = mongoose.model('Notification', new mongoose.Schema({
   message:{
     type: String,
     required: true,
+  },
+  created_at: {
+    type: Date,
+    default: Date.now
   }
 }));
 
