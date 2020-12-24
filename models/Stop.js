@@ -9,11 +9,11 @@ const stopSchema = new mongoose.Schema({
         default: null
     },
     latitude: {
-        type: Decimal128,
+        type: mongoose.Decimal128,
         default: 0
     },
     longitude: {
-        type: Decimal128,
+        type: mongoose.Decimal128,
         default: 0
     },
     status: {
