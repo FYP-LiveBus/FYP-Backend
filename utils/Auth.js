@@ -38,12 +38,9 @@ const userRegister = async (userDets, role, res) => {
     });
     
     
-    newUser = await newUser.save();
-    res.send(newUser);
-    // return res.status(201).json({
-    //   message: "Hurry! now you are successfully registred. Please now login.",
-    //   success: true,
-    // });
+    await newUser.save();
+    // return res.send(newUser);
+    return res.status(201).send(newUser);
   } catch (err) {
     // Implement logger function (winston)
     return res.status(500).json({
