@@ -94,6 +94,7 @@ const userLogin = async (userCreds, role, res) => {
       role: user.role,
       email: user.email,
       phonenumber: user.phonenumber,
+      city: user.city,
       token: token,
       expiresIn: 168,
     };
