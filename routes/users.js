@@ -24,12 +24,10 @@ router.post("/register-subadmin", async (req, res) => {
   await userRegister(req.body, "subadmin", res);
 });
 
-
 // Driver Registration Route
 router.post("/register-driver", async (req, res) => {
   await userRegister(req.body, "driver", res);
 });
-
 
 // Users Login Route
 router.post("/login-student", async (req, res) => {
@@ -51,12 +49,10 @@ router.post("/login-subadmin", async (req, res) => {
   await userLogin(req.body, "subadmin", res);
 });
 
-
 // Profile Route
 router.get("/profile", userAuth, async (req, res) => {
   return res.json(serializeUser(req.user));
 });
-
 
 router.put("/:id", async (req, res) => {
   // const error  = validate(req.body);
@@ -78,7 +74,6 @@ router.put("/:id", async (req, res) => {
 
   res.send(user);
 });
-
 
 // Admins get Route
   router.get("/admins", async (req, res) => {
@@ -109,9 +104,6 @@ router.delete("/:id", async (req, res) => {
 
   res.send(user);
 });
-
-
-
 
 // Stduent Protected Route
 router.get(
