@@ -14,24 +14,13 @@ router.post("/", async (req, res) => {
   const error  = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let loc = [];
-  req.body.stops.forEach(element => {
-    var l = new Location({
-      stopNo: element.stopNo,
-      stopName: element.stopName,
-      latitude: element.latitude,
-      longitude: element.longitude,
-      status: element.status,
-    });
-    loc.push(l);
-  });
-
   console.log(req.body)
   let route = new Route({
     routeNo: req.body.routeNo,
     routeName: req.body.routeName,
     startingPoint: req.body.startingPoint,
-    stops: loc,
+    stops: req.body.stops,
+    driver: req.body.driver,
     status: req.body.status,
   });
   route = await route.save();
@@ -49,7 +38,8 @@ router.put("/:id", async (req, res) => {
       routeNo: req.body.routeNo,
       routeName: req.body.routeName,
       startingPoint: req.body.startingPoint,
-      stops: loc,
+      stops: req.body.stops,
+      driver: req.body.driver,
       status: req.body.status,
     },
     { new: true }
