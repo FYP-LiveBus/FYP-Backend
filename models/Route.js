@@ -1,6 +1,6 @@
 // const { array } = require('joi');
 const mongoose = require('mongoose');
-const {stopSchema} = require("./Stop")
+// const {stopSchema} = require("./Stop")
 
 const Route = mongoose.model('Route', new mongoose.Schema({
   routeNo:{
@@ -15,12 +15,12 @@ const Route = mongoose.model('Route', new mongoose.Schema({
     type: String,
     required: true,
   },
-  stops: [
-      stopSchema
-  ],
-  // driver:{
-  //   // type: driverSchema,
-  // },
+  stops: [{
+    type: String
+  }],
+  driver:{
+    type: String,
+  },
   status: {
     type: String,
     enum: ['Active', 'In-Active'],
