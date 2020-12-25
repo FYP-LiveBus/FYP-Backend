@@ -18,9 +18,9 @@ const Route = mongoose.model('Route', new mongoose.Schema({
   stops: [
       stopSchema
   ],
-  driver:{
-    type: driverSchema,
-  },
+  // driver:{
+  //   // type: driverSchema,
+  // },
   status: {
     type: String,
     enum: ['Active', 'In-Active'],
