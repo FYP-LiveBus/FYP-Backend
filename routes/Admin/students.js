@@ -3,8 +3,8 @@ const { Student, validate } = require("../../models/Student");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  const students = await Student.find()
+router.get("/:status", async (req, res) => {
+  const students = await Student.find({status: req.query.status})
     .select("-__v")
     .sort("name");
   res.send(students);
