@@ -7,6 +7,11 @@ router.get("/", async (req, res) => {
   res.send(stops);
 });
 
+router.get("/:status", async (req, res) => {
+  const stops = await Stop.find({status: req.params.status});
+  res.send(stops);
+});
+
 router.post("/", async (req, res) => {
   // const error  = validate(req.body);
   // if (error) return res.status(400).send(error.details[0].message);
