@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/:status", async (req, res) => {
-  const students = await Student.find({status: req.query.status})
+  const students = await Student.find({status: req.params.status})
     .select("-__v")
     .sort("name");
   res.send(students);
