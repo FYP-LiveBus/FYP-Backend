@@ -14,7 +14,7 @@ admin.initializeApp({
 });
 
 router.get("/", async (req, res) => {
-  const notificatons = await Notification.find()
+  const notificatons = await Notification.find().sort({created_at: -1})
   res.send(notificatons);
 });
 

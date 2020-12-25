@@ -76,12 +76,12 @@ router.put("/:id", async (req, res) => {
 });
 
 // Admins get Route
-  router.get("/admins", async (req, res) => {
-    const admins = await User.find({role: "admin"})
-      .sort("name");
-    // console.log("Hello")
-    res.send(admins);
-  }
+router.get("/admins", async (req, res) => {
+  const admins = await User.find({role: "admin"})
+    .sort("name");
+  // console.log("Hello")
+  res.send(admins);
+}
 );
 
 // SubAdmins get Route
@@ -134,6 +134,7 @@ router.get(
     return res.json("Hello Driver");
   }
 );
+
 
 // // Super Admin Protected Route
 // router.get(

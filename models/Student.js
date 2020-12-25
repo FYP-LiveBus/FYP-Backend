@@ -44,6 +44,11 @@ const Student = mongoose.model('Student', new mongoose.Schema({
   department:{
     type: String,
     required: true,
+  },
+  status:{
+    type: String,
+    default: "Pending",
+    enum: ['Accept','Decline','Pending']
   }
 }));
 
