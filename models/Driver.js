@@ -29,6 +29,10 @@ const Driver = mongoose.model('Driver', new mongoose.Schema({
     minlength: 5,
     maxlength: 50
   },
+  email:{
+    type: String,
+    required: true,
+  },
   licensenumber: {
     type: String,
     required: true,

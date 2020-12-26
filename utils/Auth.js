@@ -149,10 +149,35 @@ const serializeUser = (user) => {
   };
 };
 
+const changePassword = async (userDets, role, res) => {
+  try {
+    const password = await bcrypt.hash(userDets.password, 12);
+    const user = await User.findOneAndUpdate({"_id": ObjectId(userDets._id), "password": password });
+    if (!user) {
+      return res.status(404).json({
+        message: "Unable to change password",
+        success: false
+      });
+    }  
+    return res.status(201).json({
+      message: "Password Changed successfully!",
+      success: true
+    });
+  } catch (err) {
+    // Implement logger function (winston)
+    return res.status(500).json({
+      message: "Unable to change password",
+      success: false
+    });
+  }
+};
+
+
 module.exports = {
   userAuth,
   checkRole,
   userLogin,
   userRegister,
   serializeUser,
+  changePassword
 };

@@ -31,10 +31,47 @@ router.post("/", async (req, res) => {
     age: req.body.age,
     city: req.body.city,
     profilePicture: req.body.profilePicture,
+    email: req.body.email
   });
-  driver = await driver.save();
-  console.log(driver)
-  res.send(driver);
+  
+    // Validate the username
+    let usernameNotTaken = await validateUsername(req.body.username);
+    if (!usernameNotTaken) {
+      return res.status(400).json({
+        message: `Username is already taken.`,
+        success: false,
+      });
+    }
+
+    // validate the email
+    let emailNotRegistered = await validateEmail(req.body.email);
+    if (!emailNotRegistered) {
+      return res.status(400).json({
+        message: `Email is already registered.`,
+        success: false,
+      });
+    }
+
+    // Get the hashed password
+    const password = await bcrypt.hash(req.body.password, 12);
+    // create a new user
+    
+    let newUser = new User({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      role: 'driver',
+      username: req.body.username,
+      password: password,
+      phonenumber: req.body.phone,
+      city: req.body.city
+    });
+    
+    newUser = await newUser.save();
+    driver = await driver.save();
+
+    // console.log(driver)
+    res.send(driver);
 
 });
 
