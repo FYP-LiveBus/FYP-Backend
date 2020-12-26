@@ -1,5 +1,5 @@
 const { Driver, validate } = require("../../models/Driver");
-const { User } = require("../../models/User");
+const User  = require("../../models/User");
 // const auth = require("../middleware/auth");
 const express = require("express");
 const { userRegister } = require("../../utils/Auth");
