@@ -1,7 +1,9 @@
 const { Driver, validate } = require("../../models/Driver");
+const { User } = require("../../models/User");
 // const auth = require("../middleware/auth");
 const express = require("express");
 const { userRegister } = require("../../utils/Auth");
+const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -124,5 +126,16 @@ router.get("/:id", async (req, res) => {
 
   res.send(driver);
 });
+
+const validateUsername = async (username) => {
+  let user = await User.findOne({ username });
+  return user ? false : true;
+};
+
+const validateEmail = async (email) => {
+  let user = await User.findOne({ email });
+  return user ? false : true;
+};
+
 
 module.exports = router;
