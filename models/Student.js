@@ -48,7 +48,7 @@ const Student = mongoose.model('Student', new mongoose.Schema({
   status:{
     type: String,
     default: "Pending",
-    enum: ['Accept','Decline','Pending']
+    enum: ['Accept','Pending']
   }
 }));
 

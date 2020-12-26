@@ -10,8 +10,8 @@ router.get("/:status", async (req, res) => {
   res.send(students);
 });
 
-router.get("/getTotal", async (req, res) => {
-  const students = await Student.find().countDocuments();
+router.get("/", async (req, res) => {
+  const students = await Student.find({status: 'Pending'}).countDocuments()
   res.send(JSON.stringify(students));
 });
 
