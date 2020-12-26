@@ -12,7 +12,7 @@ router.get("/:status", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const students = await Student.find({status: 'Accept'}).countDocuments()
-  res.send(JSON.stringify(students));
+  res.send(students);
 });
 
 router.post("/", async (req, res) => {
