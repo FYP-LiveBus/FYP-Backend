@@ -11,7 +11,7 @@ router.get("/:status", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const students = await Student.find({status: 'Pending'}).countDocuments()
+  const students = await Student.find({status: 'Accept'}).countDocuments()
   res.send(JSON.stringify(students));
 });
 
