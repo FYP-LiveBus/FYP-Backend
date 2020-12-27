@@ -45,15 +45,13 @@ async function pushNotifications(req, res) {
                 let docData = doc.data();
                 if (docData && docData.token) {
                     console.log(docData.token)
-                    // The pushNotificationsToken retrieved from the app and stored in Firestore
-                    // if (docData.token) {
+                   
                         notificationsArray.push({
                             to: docData.token,
                             // to: ["ExponentPushToken[Pf4EQ7LW0HADk9NURogiHH]", "ExponentPushToken[O9PjY0KDJINiN3eP9go_kw]"],
                             title: data.subject,
                             body: data.message,
                         });
-                    // }
                 }
             });
                 
@@ -69,8 +67,6 @@ async function pushNotifications(req, res) {
                             "Content-Type": "application/json",
                         },
                     })
-                    // .then(res=>console.log(res))
-                    // .catch(error => console.log(error) );
                 });
                 return ;
             } else {

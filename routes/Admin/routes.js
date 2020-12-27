@@ -10,6 +10,11 @@ router.get("/", async (req, res) => {
   res.send(routes);
 });
 
+router.get("/:username", async (req, res) => {
+  const routes = await Route.findOne({driver: req.params.username})
+  res.send(routes);
+});
+
 router.post("/", async (req, res) => {
   const error  = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
