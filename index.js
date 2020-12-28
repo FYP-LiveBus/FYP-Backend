@@ -28,6 +28,7 @@ app.use("/api/drivers", require("./routes/Driver/routes"));
 app.use("/api/admin/routes", require("./routes/Admin/routes"));
 app.use("/api/admin/stops", require("./routes/Admin/stops"));
 app.use("/api/admin/notifications", require("./routes/Admin/notifications"));
+app.use("/api/driver/trips", require("./routes/Driver/trips"));
 
 const startApp = async () => {
   try {
