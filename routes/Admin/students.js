@@ -79,36 +79,42 @@ router.put("/:id", async (req, res) => {
       .send("The student with the given ID was not found.");
 
   else {
-    // Get the hashed password
-    const password = await bcrypt.hash(req.body.password, 12);
-    // create a new user
-    
-    let newUser = new User({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      role: 'student',
-      username: req.body.username,
-      password: password,
-      phonenumber: req.body.phone,
-    });
-    
-    newUser = await newUser.save();
-    
-    res.send(student);
-
+    const user = await User.findById(req.params.id);
+    if(user){
+      res.send(student);
+    }
+   else {
+      // Get the hashed password
+      const password = await bcrypt.hash(req.body.password, 12);
+      // create a new user
+      
+      let newUser = new User({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        role: 'student',
+        username: req.body.username,
+        password: password,
+        phonenumber: req.body.phone,
+      });
+      
+      newUser = await newUser.save();
+      res.send(student);
+   }
   }
 });
 
 router.delete("/:id", async (req, res) => {
   const student = await Student.findByIdAndRemove(req.params.id);
-
-  if (!student)
+  console.log(student.email)
+  const user = await User.findOneAndRemove({email: student.email});
+  if (!student || !user)
     return res
       .status(404)
       .send("The student with the given ID was not found.");
 
-  res.send(student);
+  console.log("true")
+  res.send(user);
 });
 
 router.get("/:id", async (req, res) => {
@@ -123,12 +129,12 @@ router.get("/:id", async (req, res) => {
 });
 
 const validateUsername = async (username) => {
-  let user = await User.findOne({ username });
+  let user = await Student.findOne({ username });
   return user ? false : true;
 };
 
 const validateEmail = async (email) => {
-  let user = await User.findOne({ email });
+  let user = await Student.findOne({ email });
   return user ? false : true;
 };
 
