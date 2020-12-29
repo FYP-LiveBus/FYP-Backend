@@ -10,15 +10,17 @@ router.get("/", async (req, res) => {
   res.send(routes);
 });
 
+router.get("/status/:status", async (req, res) => {
+  const routes = await Route.find({status: req.params.status});
+  res.send(routes);
+});
+
+
 router.get("/:username", async (req, res) => {
   const routes = await Route.findOne({driver: req.params.username})
   res.send(routes);
 });
 
-router.get("/:status", async (req, res) => {
-  const routes = await Route.find({status: req.params.status});
-  res.send(routes);
-});
 
 
 
