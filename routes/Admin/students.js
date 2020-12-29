@@ -2,6 +2,7 @@ const { Student, validate } = require("../../models/Student");
 const User = require("../../models/User");
 // const auth = require("../middleware/auth");
 const express = require("express");
+const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 router.get("/:status", async (req, res) => {
@@ -17,8 +18,24 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const error  = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+
+  // Validate the username
+  let usernameNotTaken = await validateUsername(req.body.username);
+  if (!usernameNotTaken) {
+    return res.status(400).json({
+      message: `Username is already taken.`,
+      success: false,
+    });
+  }
+
+  // validate the email
+  let emailNotRegistered = await validateEmail(req.body.email);
+  if (!emailNotRegistered) {
+    return res.status(400).json({
+      message: `Email is already registered.`,
+      success: false,
+    });
+  }
 
   let student = new Student({
     firstname: req.body.firstname,
@@ -31,14 +48,13 @@ router.post("/", async (req, res) => {
     registrationNo: req.body.registrationNo,
     department: req.body.department,
   });
+
   student = await student.save();
 
   res.send(student);
 });
 
 router.put("/:id", async (req, res) => {
-  const error  = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
 
   const student = await Student.findByIdAndUpdate(
     req.params.id,
@@ -62,7 +78,26 @@ router.put("/:id", async (req, res) => {
       .status(404)
       .send("The student with the given ID was not found.");
 
-  res.send(student);
+  else {
+    // Get the hashed password
+    const password = await bcrypt.hash(req.body.password, 12);
+    // create a new user
+    
+    let newUser = new User({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      role: 'student',
+      username: req.body.username,
+      password: password,
+      phonenumber: req.body.phone,
+    });
+    
+    newUser = await newUser.save();
+    
+    res.send(student);
+
+  }
 });
 
 router.delete("/:id", async (req, res) => {
@@ -86,5 +121,17 @@ router.get("/:id", async (req, res) => {
 
   res.send(student);
 });
+
+const validateUsername = async (username) => {
+  let user = await User.findOne({ username });
+  return user ? false : true;
+};
+
+const validateEmail = async (email) => {
+  let user = await User.findOne({ email });
+  return user ? false : true;
+};
+
+
 
 module.exports = router;
