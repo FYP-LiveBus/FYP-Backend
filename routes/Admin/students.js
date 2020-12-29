@@ -51,6 +51,7 @@ router.put("/:id", async (req, res) => {
       semester: req.body.semester,
       phone: req.body.phone,
       registrationNo: req.body.registrationNo,
+      department: req.body.department,
       status: req.body.status
     },
     { new: true }
