@@ -20,7 +20,6 @@ const Student = mongoose.model('Student', new mongoose.Schema({
   },
   email: {
     type: String,
-    
     required: true
   },
   password: { 
