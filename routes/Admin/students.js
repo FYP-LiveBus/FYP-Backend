@@ -106,14 +106,15 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const student = await Student.findByIdAndRemove(req.params.id);
-  console.log(student.email)
+  if(student.status === 'Pending'){
+    res.send(student);
+  }
   const user = await User.findOneAndRemove({email: student.email});
   if (!student || !user)
     return res
       .status(404)
       .send("The student with the given ID was not found.");
 
-  console.log("true")
   res.send(user);
 });
 
