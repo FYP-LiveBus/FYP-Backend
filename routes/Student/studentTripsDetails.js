@@ -9,6 +9,12 @@ router.get("/", async (req, res) => {
     res.send(trips);
 });
 
+// router.get("/count", async (req, res) => {
+//     const trips = await StudentTripsDetail.find({stopName: , date: }).countDocuments()
+//     res.send(JSON.stringify(trips));
+// });
+
+
 router.get("/:id", async (req, res) => {
     const trip = await StudentTripsDetail.findById(req.params.id).select("-__v");
     if (!trip)
@@ -26,7 +32,7 @@ router.get("/count", async (req, res) => {
 router.post("/", async (req, res) => {
     let trip = new StudentTripsDetail({
         stdUsername: req.body.stdUsername,
-        stdRegistrationNo: req.body.stdRegistrationNo,
+        email: req.body.email,
         routeNo: req.body.routeNo,
         stopName: req.body.stopName,
         date: req.body.date

@@ -5,7 +5,7 @@ const StudentTripsDetail = mongoose.model('StudentTripsDetail', new mongoose.Sch
     type: String,
     required: true,
   },
-  stdRegistrationNo:{
+  email:{
     type: String,
     required: true
   },
