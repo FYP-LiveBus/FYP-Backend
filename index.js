@@ -24,11 +24,13 @@ app.use("/api/admin/drivers", require("./routes/Admin/drivers"));
 app.use("/api/admin/conductors", require("./routes/Admin/conductors"));
 app.use("/api/admin/students", require("./routes/Admin/students"));
 app.use("/api/admin/buses", require("./routes/Admin/buses"));
-app.use("/api/drivers", require("./routes/Driver/routes"));
 app.use("/api/admin/routes", require("./routes/Admin/routes"));
 app.use("/api/admin/stops", require("./routes/Admin/stops"));
 app.use("/api/admin/notifications", require("./routes/Admin/notifications"));
+app.use("/api/drivers", require("./routes/Driver/routes"));
 app.use("/api/driver/trips", require("./routes/Driver/trips"));
+app.use("/api/student/trips", require("./routes/Student/studentTripsDetails"));
+
 
 const startApp = async () => {
   try {
