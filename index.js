@@ -30,7 +30,7 @@ app.use("/api/admin/notifications", require("./routes/Admin/notifications"));
 app.use("/api/drivers", require("./routes/Driver/routes"));
 app.use("/api/driver/trips", require("./routes/Driver/trips"));
 app.use("/api/student/trips", require("./routes/Student/studentTripsDetails"));
-
+app.use("/api/student/feedbacks", require("./routes/Student/feedbacks"));
 
 const startApp = async () => {
   try {
