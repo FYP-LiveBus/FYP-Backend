@@ -15,14 +15,24 @@ router.get("/", async (req, res) => {
 // });
 
 
-router.get("/:id", async (req, res) => {
-    const trip = await StudentTripsDetail.findById(req.params.id).select("-__v");
+// router.get("/:id", async (req, res) => {
+//     const trip = await StudentTripsDetail.findById(req.params.id).select("-__v");
+//     if (!trip)
+//         return res
+//             .status(404)
+//             .send("The trip with the given ID was not found.");
+//     res.send(trip);
+// });
+
+router.get("/:email", async (req, res) => {
+    const trip = await StudentTripsDetail.find({email: req.params.email});
     if (!trip)
         return res
             .status(404)
             .send("The trip with the given ID was not found.");
     res.send(trip);
 });
+
 
 router.get("/count", async (req, res) => {
   const trips = await StudentTripsDetail.find().countDocuments({});
