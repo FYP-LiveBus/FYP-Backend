@@ -1,34 +1,29 @@
 const { Route, validate } = require("../../models/Route");
 // const auth = require("../middleware/auth");
-const {Location} = require("../../models/Stop");
+const { Location } = require("../../models/Stop");
 const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const routes = await Route.find()
-    .sort("title");
+  const routes = await Route.find().sort("title");
   res.send(routes);
 });
 
 router.get("/status/:status", async (req, res) => {
-  const routes = await Route.find({status: req.params.status});
+  const routes = await Route.find({ status: req.params.status });
   res.send(routes);
 });
-
 
 router.get("/:username", async (req, res) => {
-  const routes = await Route.findOne({driver: req.params.username})
+  const routes = await Route.findOne({ driver: req.params.username });
   res.send(routes);
 });
 
-
-
-
 router.post("/", async (req, res) => {
-  const error  = validate(req.body);
+  const error = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  console.log(req.body)
+  console.log(req.body);
   let route = new Route({
     routeNo: req.body.routeNo,
     routeName: req.body.routeName,
@@ -36,6 +31,7 @@ router.post("/", async (req, res) => {
     stops: req.body.stops,
     driver: req.body.driver,
     status: req.body.status,
+    driverID: req.body.driverID,
   });
   route = await route.save();
 
@@ -43,7 +39,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const error  = validate(req.body);
+  const error = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const route = await Route.findByIdAndUpdate(
@@ -55,14 +51,13 @@ router.put("/:id", async (req, res) => {
       stops: req.body.stops,
       driver: req.body.driver,
       status: req.body.status,
+      driverID: req.body.driverID,
     },
     { new: true }
   );
 
   if (!route)
-    return res
-      .status(404)
-      .send("The route with the given ID was not found.");
+    return res.status(404).send("The route with the given ID was not found.");
 
   res.send(route);
 });
@@ -71,9 +66,7 @@ router.delete("/:id", async (req, res) => {
   const route = await Route.findByIdAndRemove(req.params.id);
 
   if (!route)
-    return res
-      .status(404)
-      .send("The route with the given ID was not found.");
+    return res.status(404).send("The route with the given ID was not found.");
 
   res.send(route);
 });
@@ -82,9 +75,7 @@ router.get("/:id", async (req, res) => {
   const route = await Route.findById(req.params.id).select("-__v");
 
   if (!route)
-    return res
-      .status(404)
-      .send("The route with the given ID was not found.");
+    return res.status(404).send("The route with the given ID was not found.");
 
   res.send(route);
 });
