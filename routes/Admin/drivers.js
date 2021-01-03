@@ -103,11 +103,16 @@ router.put("/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
+  // let e = await Driver.find(req.params.id);
   const driver = await Driver.findByIdAndRemove(req.params.id);
-
   if (!driver)
     return res.status(404).send("The driver with the given ID was not found.");
 
+  const user = await User.findOneAndRemove({ email: driver.email });
+  if (!driver && !user)
+    return res.status(404).send("The student with the given ID was not found.");
+
+  // res.send(user);
   res.send(driver);
 });
 
