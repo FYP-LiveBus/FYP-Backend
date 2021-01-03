@@ -4,36 +4,36 @@ const UserSchema = new Schema(
   {
     firstname: {
       type: String,
-      required: true
+      required: true,
     },
     lastname: {
       type: String,
-      required: true
+      required: true,
     },
     email: {
       type: String,
-      required: true
+      required: true,
     },
     role: {
       type: String,
       default: "user",
-      enum: ["student", "admin", "subadmin", "driver"]
+      enum: ["student", "admin", "subadmin", "driver"],
     },
     username: {
       type: String,
-      required: true
+      required: true,
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
     phonenumber: {
       type: String,
-      required: false
+      required: false,
     },
     city: {
       type: String,
-    }
+    },
   },
   { timestamps: true }
 );

@@ -1,5 +1,5 @@
 const { Driver, validate } = require("../../models/Driver");
-const User  = require("../../models/User");
+const User = require("../../models/User");
 // const auth = require("../middleware/auth");
 const express = require("express");
 const { userRegister } = require("../../utils/Auth");
@@ -7,9 +7,7 @@ const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const drivers = await Driver.find()
-    .select("-__v")
-    .sort("name");
+  const drivers = await Driver.find().select("-__v").sort("name");
   res.send(drivers);
 });
 
@@ -18,12 +16,48 @@ router.get("/getTotal", async (req, res) => {
   res.send(JSON.stringify(drivers));
 });
 
-
 router.post("/", async (req, res) => {
-  const error  = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-  console.log(req.body)
+  // const error  = validate(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
+  // console.log(req.body)
+
+  // Validate the username
+  // let usernameNotTaken = await validateUsername(req.body.username);
+  // if (!usernameNotTaken) {
+  //   return res.status(400).json({
+  //     message: `Username is already taken.`,
+  //     success: false,
+  //   });
+  // }
+
+  // validate the email
+  let emailNotRegistered = await validateEmail(req.body.email);
+  if (!emailNotRegistered) {
+    return res.status(400).json({
+      message: `Email is already registered.`,
+      success: false,
+    });
+  }
+
+  // Get the hashed password
+  const password = await bcrypt.hash(req.body.password, 12);
+  // create a new user
+
+  let newUser = new User({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    role: "driver",
+    username: req.body.username,
+    password: password,
+    phonenumber: req.body.phone,
+    city: req.body.city,
+  });
+
+  newUser = await newUser.save();
+
   let driver = new Driver({
+    driverID: newUser._id,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     username: req.body.username,
@@ -33,52 +67,17 @@ router.post("/", async (req, res) => {
     age: req.body.age,
     city: req.body.city,
     profilePicture: req.body.profilePicture,
-    email: req.body.email
+    email: req.body.email,
   });
-  
-    // Validate the username
-    let usernameNotTaken = await validateUsername(req.body.username);
-    if (!usernameNotTaken) {
-      return res.status(400).json({
-        message: `Username is already taken.`,
-        success: false,
-      });
-    }
 
-    // validate the email
-    let emailNotRegistered = await validateEmail(req.body.email);
-    if (!emailNotRegistered) {
-      return res.status(400).json({
-        message: `Email is already registered.`,
-        success: false,
-      });
-    }
+  driver = await driver.save();
 
-    // Get the hashed password
-    const password = await bcrypt.hash(req.body.password, 12);
-    // create a new user
-    
-    let newUser = new User({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      role: 'driver',
-      username: req.body.username,
-      password: password,
-      phonenumber: req.body.phone,
-      city: req.body.city
-    });
-    
-    newUser = await newUser.save();
-    driver = await driver.save();
-
-    // console.log(driver)
-    res.send(driver);
-
+  // console.log(driver)
+  res.send(driver);
 });
 
 router.put("/:id", async (req, res) => {
-  const error  = validate(req.body);
+  const error = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const driver = await Driver.findByIdAndUpdate(
@@ -98,9 +97,7 @@ router.put("/:id", async (req, res) => {
   );
 
   if (!driver)
-    return res
-      .status(404)
-      .send("The driver with the given ID was not found.");
+    return res.status(404).send("The driver with the given ID was not found.");
 
   res.send(driver);
 });
@@ -109,9 +106,7 @@ router.delete("/:id", async (req, res) => {
   const driver = await Driver.findByIdAndRemove(req.params.id);
 
   if (!driver)
-    return res
-      .status(404)
-      .send("The driver with the given ID was not found.");
+    return res.status(404).send("The driver with the given ID was not found.");
 
   res.send(driver);
 });
@@ -120,9 +115,7 @@ router.get("/:id", async (req, res) => {
   const driver = await Driver.findById(req.params.id).select("-__v");
 
   if (!driver)
-    return res
-      .status(404)
-      .send("The driver with the given ID was not found.");
+    return res.status(404).send("The driver with the given ID was not found.");
 
   res.send(driver);
 });
@@ -136,6 +129,5 @@ const validateEmail = async (email) => {
   let user = await User.findOne({ email });
   return user ? false : true;
 };
-
 
 module.exports = router;
