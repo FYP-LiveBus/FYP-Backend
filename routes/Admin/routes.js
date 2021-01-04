@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
   const error = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  console.log(req.body);
+  // console.log(req.body);
   let route = new Route({
     routeNo: req.body.routeNo,
     routeName: req.body.routeName,
@@ -33,6 +33,7 @@ router.post("/", async (req, res) => {
     status: req.body.status,
     driverID: req.body.driverID,
   });
+
   route = await route.save();
 
   res.send(route);
