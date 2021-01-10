@@ -28,6 +28,10 @@ const Route = mongoose.model(
     driverID: {
       type: String,
     },
+    busNo: {
+      type: String,
+      unique: true,
+    },
     status: {
       type: String,
       enum: ["Active", "In-Active"],

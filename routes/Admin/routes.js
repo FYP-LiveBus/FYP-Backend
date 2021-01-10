@@ -32,6 +32,7 @@ router.post("/", async (req, res) => {
     driver: req.body.driver,
     status: req.body.status,
     driverID: req.body.driverID,
+    busNo: req.body.busNo,
   });
 
   route = await route.save();
@@ -53,6 +54,7 @@ router.put("/:id", async (req, res) => {
       driver: req.body.driver,
       status: req.body.status,
       driverID: req.body.driverID,
+      busNo: req.body.busNo,
     },
     { new: true }
   );
