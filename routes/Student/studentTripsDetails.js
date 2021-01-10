@@ -5,15 +5,14 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    const trips = await StudentTripsDetail.find();
-    res.send(trips);
+  const trips = await StudentTripsDetail.find();
+  res.send(trips);
 });
 
 // router.get("/count", async (req, res) => {
 //     const trips = await StudentTripsDetail.find({stopName: , date: }).countDocuments()
 //     res.send(JSON.stringify(trips));
 // });
-
 
 // router.get("/:id", async (req, res) => {
 //     const trip = await StudentTripsDetail.findById(req.params.id).select("-__v");
@@ -25,14 +24,11 @@ router.get("/", async (req, res) => {
 // });
 
 router.get("/:email", async (req, res) => {
-    const trip = await StudentTripsDetail.find({email: req.params.email});
-    if (!trip)
-        return res
-            .status(404)
-            .send("The trip with the given ID was not found.");
-    res.send(trip);
+  const trip = await StudentTripsDetail.find({ email: req.params.email });
+  if (!trip)
+    return res.status(404).send("The trip with the given ID was not found.");
+  res.send(trip);
 });
-
 
 router.get("/count", async (req, res) => {
   const trips = await StudentTripsDetail.find().countDocuments({});
@@ -40,28 +36,25 @@ router.get("/count", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    let trip = new StudentTripsDetail({
-        stdUsername: req.body.stdUsername,
-        email: req.body.email,
-        routeNo: req.body.routeNo,
-        stopName: req.body.stopName,
-        date: req.body.date
-    });
-    trip = await trip.save();
+  let trip = new StudentTripsDetail({
+    stdUsername: req.body.stdUsername,
+    email: req.body.email,
+    routeNo: req.body.routeNo,
+    stopName: req.body.stopName,
+    driver: req.body.driver,
+    date: req.body.date,
+  });
+  trip = await trip.save();
 
-    res.send(trip);
+  res.send(trip);
 });
-
 
 router.delete("/:id", async (req, res) => {
-    const trip = await StudentTripsDetail.findByIdAndRemove(req.params.id);
-    if (!trip)
-        return res
-        .status(404)
-     .send("The trip with the given ID was not found.");
-    res.send(trip);
+  const trip = await StudentTripsDetail.findByIdAndRemove(req.params.id);
+  if (!trip)
+    return res.status(404).send("The trip with the given ID was not found.");
+  res.send(trip);
 });
-
 
 // router.put("/:id", async (req, res) => {
 //   const error  = validate(req.body);
