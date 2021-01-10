@@ -11,6 +11,7 @@ router.post("/", async (req, res) => {
   let feedback = new Feedback({
     message: req.body.message,
     rating: req.body.rating,
+    date: req.body.date,
     // studentID: req.body.studentID
   });
 

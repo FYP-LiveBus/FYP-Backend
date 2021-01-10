@@ -9,30 +9,16 @@ router.get("/", async (req, res) => {
   res.send(trips);
 });
 
-// router.get("/count", async (req, res) => {
-//     const trips = await StudentTripsDetail.find({stopName: , date: }).countDocuments()
-//     res.send(JSON.stringify(trips));
-// });
-
-// router.get("/:id", async (req, res) => {
-//     const trip = await StudentTripsDetail.findById(req.params.id).select("-__v");
-//     if (!trip)
-//         return res
-//             .status(404)
-//             .send("The trip with the given ID was not found.");
-//     res.send(trip);
-// });
+router.get("/count", async (req, res) => {
+  const trips = await StudentTripsDetail.find().countDocuments({});
+  res.sendStatus(trips);
+});
 
 router.get("/:email", async (req, res) => {
   const trip = await StudentTripsDetail.find({ email: req.params.email });
   if (!trip)
     return res.status(404).send("The trip with the given ID was not found.");
   res.send(trip);
-});
-
-router.get("/count", async (req, res) => {
-  const trips = await StudentTripsDetail.find().countDocuments({});
-  res.send(trips);
 });
 
 router.post("/", async (req, res) => {
