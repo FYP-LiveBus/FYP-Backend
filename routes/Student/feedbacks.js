@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const feedbacks = await Feedback.find();
+  const feedbacks = await Feedback.find().sort({ created_at: -1 });
   res.send(feedbacks);
 });
 
