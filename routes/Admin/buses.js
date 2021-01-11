@@ -71,4 +71,13 @@ router.get("/:id", async (req, res) => {
   res.send(bus);
 });
 
+router.get("/getByNo/:busNo", async (req, res) => {
+  const bus = await Bus.findOne({ busNo: req.params.busNo }).select("-__v");
+
+  if (!bus)
+    return res.status(404).send("The bus with the given ID was not found.");
+
+  res.send(bus);
+});
+
 module.exports = router;
