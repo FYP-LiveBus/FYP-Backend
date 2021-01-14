@@ -1,25 +1,17 @@
 const { Trip } = require("../../models/Trip");
-// const auth = require("../middleware/auth");
-const {Location} = require("../../models/Stop");
 const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const trips = await Trip.find()
-    .sort("title");
+  const trips = await Trip.find().sort("title");
   res.send(trips);
 });
 
-// router.get("/:username", async (req, res) => {
-//   const routes = await Route.findOne({driver: req.params.username})
-//   res.send(routes);
-// });
-
 router.post("/", async (req, res) => {
-
   let trip = new Trip({
     driverName: req.body.driverName,
     routeNo: req.body.routeNo,
+    busNo: req.body.busNo,
     startingPoint: req.body.startingPoint,
     endingPoint: req.body.endingPoint,
   });
@@ -68,9 +60,7 @@ router.get("/:id", async (req, res) => {
   const trip = await Trip.findById(req.params.id).select("-__v");
 
   if (!trip)
-    return res
-      .status(404)
-      .send("The trip with the given ID was not found.");
+    return res.status(404).send("The trip with the given ID was not found.");
 
   res.send(trip);
 });
