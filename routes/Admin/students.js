@@ -5,20 +5,28 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 
+router.get("/count", async (req, res) => {
+  const totalAccept = await Student.find({ status: "Accept" }).countDocuments();
+  const totalPending = await Student.find({
+    status: "Pending",
+  }).countDocuments();
+  const std = { totalAccept, totalPending };
+  res.send(std);
+});
+
 router.get("/:status", async (req, res) => {
-  const students = await Student.find({status: req.params.status})
+  const students = await Student.find({ status: req.params.status })
     .select("-__v")
     .sort("name");
   res.send(students);
 });
 
 router.get("/", async (req, res) => {
-  const students = await Student.find({status: 'Accept'}).countDocuments()
+  const students = await Student.find({ status: "Accept" }).countDocuments();
   res.send(JSON.stringify(students));
 });
 
 router.post("/", async (req, res) => {
-
   // Validate the username
   let usernameNotTaken = await validateUsername(req.body.username);
   if (!usernameNotTaken) {
@@ -55,7 +63,6 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-
   const student = await Student.findByIdAndUpdate(
     req.params.id,
     {
@@ -68,52 +75,46 @@ router.put("/:id", async (req, res) => {
       phone: req.body.phone,
       registrationNo: req.body.registrationNo,
       department: req.body.department,
-      status: req.body.status
+      status: req.body.status,
     },
     { new: true }
   );
 
   if (!student)
-    return res
-      .status(404)
-      .send("The student with the given ID was not found.");
-
+    return res.status(404).send("The student with the given ID was not found.");
   else {
     const user = await User.findById(req.params.id);
-    if(user){
+    if (user) {
       res.send(student);
-    }
-   else {
+    } else {
       // Get the hashed password
       const password = await bcrypt.hash(req.body.password, 12);
       // create a new user
-      
+
       let newUser = new User({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
-        role: 'student',
+        role: "student",
         username: req.body.username,
         password: password,
         phonenumber: req.body.phone,
       });
-      
+
       newUser = await newUser.save();
       res.send(student);
-   }
+    }
   }
 });
 
 router.delete("/:id", async (req, res) => {
   const student = await Student.findByIdAndRemove(req.params.id);
-  if(student.status === 'Pending'){
+  if (student.status === "Pending") {
     res.send(student);
   }
-  const user = await User.findOneAndRemove({email: student.email});
+  const user = await User.findOneAndRemove({ email: student.email });
   if (!student || !user)
-    return res
-      .status(404)
-      .send("The student with the given ID was not found.");
+    return res.status(404).send("The student with the given ID was not found.");
 
   res.send(user);
 });
@@ -122,9 +123,7 @@ router.get("/:id", async (req, res) => {
   const student = await Student.findById(req.params.id).select("-__v");
 
   if (!student)
-    return res
-      .status(404)
-      .send("The student with the given ID was not found.");
+    return res.status(404).send("The student with the given ID was not found.");
 
   res.send(student);
 });
@@ -138,7 +137,5 @@ const validateEmail = async (email) => {
   let user = await Student.findOne({ email });
   return user ? false : true;
 };
-
-
 
 module.exports = router;
