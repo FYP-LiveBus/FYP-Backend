@@ -5,6 +5,11 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+  const students = await Student.find({ status: "Accept" }).countDocuments();
+  res.send(JSON.stringify(students));
+});
+
 router.get("/count", async (req, res) => {
   const totalAccept = await Student.find({ status: "Accept" }).countDocuments();
   const totalPending = await Student.find({
@@ -14,16 +19,16 @@ router.get("/count", async (req, res) => {
   res.send(std);
 });
 
+router.get("/countAll", async (req, res) => {
+  const stds = await Student.find().countDocuments();
+  res.send(stds);
+});
+
 router.get("/:status", async (req, res) => {
   const students = await Student.find({ status: req.params.status })
     .select("-__v")
     .sort("name");
   res.send(students);
-});
-
-router.get("/", async (req, res) => {
-  const students = await Student.find({ status: "Accept" }).countDocuments();
-  res.send(JSON.stringify(students));
 });
 
 router.post("/", async (req, res) => {
