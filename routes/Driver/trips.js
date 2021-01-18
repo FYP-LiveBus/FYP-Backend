@@ -7,6 +7,41 @@ router.get("/", async (req, res) => {
   res.send(trips);
 });
 
+router.get("/count", async (req, res) => {
+  const trip = await Trip.aggregate([
+    {
+      $project: {
+        _id: 0,
+        // accountID:1,
+        date: 1,
+        PreviousDate: { $subtract: ["$date", 1000 * 60 * 60 * 24 * 30] },
+      },
+    },
+    {
+      $group: {
+        _id: { _id: "$routeNo" },
+        FDate: { $first: "$date" },
+        LDate: { $first: "$PreviousDate" },
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+
+  if (!trip)
+    return res.status(404).send("The trip with the given ID was not found.");
+
+  res.send(trip);
+});
+
+router.get("/:id", async (req, res) => {
+  const trip = await Trip.findById(req.params.id).select("-__v");
+
+  if (!trip)
+    return res.status(404).send("The trip with the given ID was not found.");
+
+  res.send(trip);
+});
+
 router.post("/", async (req, res) => {
   let trip = new Trip({
     driverName: req.body.driverName,
@@ -16,51 +51,6 @@ router.post("/", async (req, res) => {
     endingPoint: req.body.endingPoint,
   });
   trip = await trip.save();
-
-  res.send(trip);
-});
-
-// router.put("/:id", async (req, res) => {
-//   const error  = validate(req.body);
-//   if (error) return res.status(400).send(error.details[0].message);
-
-//   const route = await Route.findByIdAndUpdate(
-//     req.params.id,
-//     {
-//       routeNo: req.body.routeNo,
-//       routeName: req.body.routeName,
-//       startingPoint: req.body.startingPoint,
-//       stops: req.body.stops,
-//       driver: req.body.driver,
-//       status: req.body.status,
-//     },
-//     { new: true }
-//   );
-
-//   if (!route)
-//     return res
-//       .status(404)
-//       .send("The route with the given ID was not found.");
-
-//   res.send(route);
-// });
-
-// router.delete("/:id", async (req, res) => {
-//   const route = await Route.findByIdAndRemove(req.params.id);
-
-//   if (!route)
-//     return res
-//       .status(404)
-//       .send("The route with the given ID was not found.");
-
-//   res.send(route);
-// });
-
-router.get("/:id", async (req, res) => {
-  const trip = await Trip.findById(req.params.id).select("-__v");
-
-  if (!trip)
-    return res.status(404).send("The trip with the given ID was not found.");
 
   res.send(trip);
 });

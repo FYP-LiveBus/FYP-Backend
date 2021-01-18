@@ -1,4 +1,4 @@
-const cors = require('cors');
+const cors = require("cors");
 const exp = require("express");
 const bp = require("body-parser");
 const passport = require("passport");
@@ -7,7 +7,7 @@ const { success, error } = require("consola");
 
 // Bring in the app constants
 const { DB, PORT } = require("./config");
-
+console.log("DB here===============>" + DB);
 // Initialize the application
 const app = exp();
 
@@ -50,7 +50,6 @@ const startApp = async () => {
     app.listen(process.env.PORT || PORT, () =>
       success({ message: `Server started on PORT `, badge: true })
     );
-    
   } catch (err) {
     error({
       message: `Unable to connect with Database \n${err}`,
@@ -58,7 +57,6 @@ const startApp = async () => {
     });
     startApp();
   }
-
 };
 
 startApp();

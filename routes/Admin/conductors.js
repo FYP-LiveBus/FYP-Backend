@@ -4,9 +4,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const conductors = await Conductor.find()
-    .select("-__v")
-    .sort("name");
+  const conductors = await Conductor.find().select("-__v").sort("name");
   res.send(conductors);
 });
 
@@ -15,9 +13,8 @@ router.get("/getTotal", async (req, res) => {
   res.send(JSON.stringify(conductors));
 });
 
-
 router.post("/", async (req, res) => {
-  const error  = validate(req.body);
+  const error = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   let conductor = new Conductor({
@@ -27,7 +24,7 @@ router.post("/", async (req, res) => {
     phone: req.body.phone,
     age: req.body.age,
     city: req.body.city,
-    profilePicture: req.body.profilePicture
+    profilePicture: req.body.profilePicture,
   });
   conductor = await conductor.save();
 
@@ -35,7 +32,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const error  = validate(req.body);
+  const error = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const conductor = await Conductor.findByIdAndUpdate(
@@ -47,7 +44,7 @@ router.put("/:id", async (req, res) => {
       phone: req.body.phone,
       age: req.body.age,
       city: req.body.city,
-      profilePicture: req.body.profilePicture
+      profilePicture: req.body.profilePicture,
     },
     { new: true }
   );
