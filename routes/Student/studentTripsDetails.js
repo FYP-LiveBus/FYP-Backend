@@ -10,8 +10,8 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/count", async (req, res) => {
-  const trips = await StudentTripsDetail.find().countDocuments({});
-  res.sendStatus(trips);
+  const trips = await StudentTripsDetail.find().countDocuments();
+  res.send(JSON.stringify(trips));
 });
 
 router.get("/:email", async (req, res) => {
