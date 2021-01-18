@@ -21,7 +21,7 @@ router.get("/count", async (req, res) => {
 
 router.get("/countAll", async (req, res) => {
   const stds = await Student.find().countDocuments();
-  res.sendStatus(JSON.stringify(stds));
+  res.send(JSON.stringify(stds));
 });
 
 // router.get("/:status", async (req, res) => {
