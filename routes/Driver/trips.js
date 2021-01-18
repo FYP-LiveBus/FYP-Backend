@@ -8,8 +8,8 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/count", async (req, res) => {
-  const trips = await Trip.find().sort("title");
-  res.send(trips);
+  const trips = await Trip.find().countDocuments();
+  res.send(JSON.stringify(trips));
 });
 
 router.get("/countForGraph", async (req, res) => {
