@@ -19,7 +19,7 @@ router.get("/count", async (req, res) => {
   res.send(std);
 });
 
-router.get("/countAll", async (req, res) => {
+router.get("/countAll/check", async (req, res) => {
   const stds = await Student.find().countDocuments();
   res.send(stds);
 });
