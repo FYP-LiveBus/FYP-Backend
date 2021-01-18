@@ -12,8 +12,9 @@ const Notification = mongoose.model(
       type: String,
       required: true,
     },
-    created_at: {
+    date: {
       type: Date,
+      default: Date.now,
     },
   })
 );
