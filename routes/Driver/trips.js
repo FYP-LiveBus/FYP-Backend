@@ -8,6 +8,11 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/count", async (req, res) => {
+  const trips = await Trip.find().sort("title");
+  res.send(trips);
+});
+
+router.get("/countForGraph", async (req, res) => {
   const trip = await Trip.aggregate([
     {
       $project: {
