@@ -19,17 +19,17 @@ router.get("/count", async (req, res) => {
   res.send(std);
 });
 
-router.get("/countAll/check", async (req, res) => {
+router.get("/countAll", async (req, res) => {
   const stds = await Student.find().countDocuments();
-  res.send(stds);
+  res.sendStatus(JSON.stringify(stds));
 });
 
-router.get("/:status", async (req, res) => {
-  const students = await Student.find({ status: req.params.status })
-    .select("-__v")
-    .sort("name");
-  res.send(students);
-});
+// router.get("/:status", async (req, res) => {
+//   const students = await Student.find({ status: req.params.status })
+//     .select("-__v")
+//     .sort("name");
+//   res.send(students);
+// });
 
 router.post("/", async (req, res) => {
   // Validate the username
