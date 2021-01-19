@@ -35,9 +35,9 @@ router.post("/login-student", async (req, res) => {
 });
 
 // Admin Login Route
-router.post("/login-admin", async (req, res) => {
-  await userLogin(req.body, "admin", res);
-});
+// router.post("/login-admin", async (req, res) => {
+//   await userLogin(req.body, "admin", res);
+// });
 
 // Login by Role
 router.post("/login", async (req, res) => {
@@ -52,9 +52,9 @@ router.post("/login-driver", async (req, res) => {
 });
 
 // Sub Admin Login Route
-router.post("/login-subadmin", async (req, res) => {
-  await userLogin(req.body, "subadmin", res);
-});
+// router.post("/login-subadmin", async (req, res) => {
+//   await userLogin(req.body, "subadmin", res);
+// });
 
 // Profile Route
 router.get("/profile", userAuth, async (req, res) => {

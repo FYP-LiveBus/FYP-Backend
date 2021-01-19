@@ -14,7 +14,7 @@ router.get("/count", async (req, res) => {
   res.send(JSON.stringify(trips));
 });
 
-router.get("/countForGraph", async (req, res) => {
+router.get("/countRoutesForGraph", async (req, res) => {
   const trip = await StudentTripsDetail.aggregate([
     {
       $group: {
@@ -25,45 +25,13 @@ router.get("/countForGraph", async (req, res) => {
     { $sort: { "_id.routeNo": 1 } },
   ]);
 
-  // var d = new Date();
-  // d.setDate(d.getDate() - 7);
-
-  // const trip = await StudentTripsDetail.aggregate([
-  //   // Only include the docs that have at least one passedModules element
-  //   // that passes the filter.
-  //   { $match: { date: { $gt: d } } },
-  //   // Duplicate the docs, one per passedModules element
-  //   { $unwind: "$trip" },
-  //   // Filter again to remove the non-matching elements
-  //   { $match: { date: { $gt: d } } },
-  // ]);
-
-  // const trip = await StudentTripsDetail.aggregate([
-  //   {
-  //     $project: {
-  //       _id: 1,
-  //       // accountID:1,
-  //       date: 1,
-  //       PreviousDate: { $subtract: ["$date", 1000 * 60 * 60 * 24 * 7] },
-  //     },
-  //   },
-  //   {
-  //     $group: {
-  //       _id: { _id: "$routeNo" },
-  //       FDate: { $first: "$date" },
-  //       LDate: { $first: "$PreviousDate" },
-  //       count: { $sum: 1 },
-  //     },
-  //   },
-  // ]);
-
   if (!trip)
     return res.status(404).send("The trip with the given ID was not found.");
 
   res.send(JSON.stringify(trip));
 });
 
-router.get("/countStopsDataForGraph", async (req, res) => {
+router.get("/countStopsForGraph", async (req, res) => {
   const trip = await StudentTripsDetail.aggregate([
     {
       $group: {
