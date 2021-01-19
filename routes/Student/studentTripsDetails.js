@@ -22,7 +22,7 @@ router.get("/countForGraph", async (req, res) => {
         count: { $sum: 1 },
       },
     },
-    { $sort: { "_id.date": 1 } },
+    { $sort: { "_id.routeNo": 1 } },
   ]);
 
   // var d = new Date();
