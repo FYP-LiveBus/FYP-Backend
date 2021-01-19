@@ -7,6 +7,11 @@ router.get("/", async (req, res) => {
   res.send(stops);
 });
 
+router.get("/totalCount", async (req, res) => {
+  const stops = await Stop.find().countDocuments();
+  res.send(JSON.stringify(stops));
+});
+
 router.get("/:status", async (req, res) => {
   const stops = await Stop.find({ status: req.params.status });
   res.send(stops);

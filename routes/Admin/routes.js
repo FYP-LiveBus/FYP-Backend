@@ -9,6 +9,11 @@ router.get("/", async (req, res) => {
   res.send(routes);
 });
 
+router.get("/totalCount", async (req, res) => {
+  const routes = await Route.find().countDocuments();
+  res.send(JSON.stringify(routes));
+});
+
 router.get("/status/:status", async (req, res) => {
   const routes = await Route.find({ status: req.params.status });
   res.send(routes);
