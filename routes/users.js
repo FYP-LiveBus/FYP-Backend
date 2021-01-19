@@ -6,7 +6,7 @@ const {
   userLogin,
   checkRole,
   userRegister,
-  serializeUser
+  serializeUser,
 } = require("../utils/Auth");
 
 // Sudents Registeration Route
@@ -39,6 +39,13 @@ router.post("/login-admin", async (req, res) => {
   await userLogin(req.body, "admin", res);
 });
 
+// Login by Role
+router.post("/login", async (req, res) => {
+  const user = await User.findOne({ username: req.body.username });
+  const checkRole = user.role;
+  await userLogin(req.body, checkRole, res);
+});
+
 // Driver Login Route
 router.post("/login-driver", async (req, res) => {
   await userLogin(req.body, "driver", res);
@@ -58,49 +65,41 @@ router.put("/:id", async (req, res) => {
   // const error  = validate(req.body);
   // if (error) return res.status(400).send(error.details[0].message);
 
-  console.log(req.body)
+  console.log(req.body);
   const user = await User.findByIdAndUpdate(
     req.params.id,
     {
-      ...req.body
+      ...req.body,
     },
     { new: true }
   );
 
   if (!user)
-    return res
-      .status(404)
-      .send("The user with the given ID was not found.");
+    return res.status(404).send("The user with the given ID was not found.");
 
   res.send(user);
 });
 
 // Admins get Route
 router.get("/admins", async (req, res) => {
-  const admins = await User.find({role: "admin"})
-    .sort("name");
+  const admins = await User.find({ role: "admin" }).sort("name");
   // console.log("Hello")
   res.send(admins);
-}
-);
+});
 
 // SubAdmins get Route
 router.get("/subadmins", async (req, res) => {
-  const subadmins = await User.find({role: "subadmin"})
-    .sort("name");
+  const subadmins = await User.find({ role: "subadmin" }).sort("name");
   // console.log("Hello")
   res.send(subadmins);
-}
-);
+});
 
 // Admin and SubAdmin delete route by ID
 router.delete("/:id", async (req, res) => {
   const user = await User.findByIdAndRemove(req.params.id);
 
   if (!user)
-    return res
-      .status(404)
-      .send("The user with the given ID was not found.");
+    return res.status(404).send("The user with the given ID was not found.");
 
   res.send(user);
 });
@@ -134,7 +133,6 @@ router.get(
     return res.json("Hello Driver");
   }
 );
-
 
 // // Super Admin Protected Route
 // router.get(

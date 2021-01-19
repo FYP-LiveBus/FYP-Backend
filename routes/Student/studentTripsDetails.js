@@ -63,6 +63,23 @@ router.get("/countForGraph", async (req, res) => {
   res.send(JSON.stringify(trip));
 });
 
+router.get("/countStopsDataForGraph", async (req, res) => {
+  const trip = await StudentTripsDetail.aggregate([
+    {
+      $group: {
+        _id: "$stopName",
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { "_id.stopName": 1 } },
+  ]);
+
+  if (!trip)
+    return res.status(404).send("The trip with the given ID was not found.");
+
+  res.send(JSON.stringify(trip));
+});
+
 router.get("/:email", async (req, res) => {
   const trip = await StudentTripsDetail.find({ email: req.params.email });
   if (!trip)

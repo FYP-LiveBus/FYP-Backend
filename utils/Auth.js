@@ -30,14 +30,13 @@ const userRegister = async (userDets, role, res) => {
     // Get the hashed password
     const password = await bcrypt.hash(userDets.password, 12);
     // create a new user
-    
+
     const newUser = new User({
       ...userDets,
       password,
       role,
     });
-    
-    
+
     await newUser.save();
     // return res.send(newUser);
     return res.status(201).send(newUser);
@@ -72,41 +71,48 @@ const userLogin = async (userCreds, role, res) => {
   }
   // That means user is existing and trying to signin for the right portal
   // Now check for the password
-  let isMatch = await bcrypt.compare(password, user.password);
-  if (isMatch) {
-    // Sign in the token and issue it to the user
-    let token = jwt.sign(
-      {
+  if (user.role === "admin" || user.role === "subadmin") {
+    let isMatch = await bcrypt.compare(password, user.password);
+    if (isMatch) {
+      // Sign in the token and issue it to the user
+      let token = jwt.sign(
+        {
+          _id: user._id,
+          role: user.role,
+          username: user.username,
+          email: user.email,
+        },
+        SECRET,
+        { expiresIn: "7 days" }
+      );
+
+      let result = {
         _id: user._id,
-        role: user.role,
+        firstname: user.firstname,
+        lastname: user.lastname,
         username: user.username,
+        role: user.role,
         email: user.email,
-      },
-      SECRET,
-      { expiresIn: "7 days" }
-    );
+        phonenumber: user.phonenumber,
+        city: user.city,
+        token: token,
+        expiresIn: 168,
+      };
 
-    let result = {
-      _id: user._id,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      username: user.username,
-      role: user.role,
-      email: user.email,
-      phonenumber: user.phonenumber,
-      city: user.city,
-      token: token,
-      expiresIn: 168,
-    };
-
-    return res.status(200).json({
-      ...result,
-      message: "Hurray! You are now logged in.",
-      success: true,
-    });
+      return res.status(200).json({
+        ...result,
+        message: "Hurray! You are now logged in.",
+        success: true,
+      });
+    } else {
+      return res.status(403).json({
+        message: "Incorrect password.",
+        success: false,
+      });
+    }
   } else {
     return res.status(403).json({
-      message: "Incorrect password.",
+      message: "Incorrect details.",
       success: false,
     });
   }
@@ -152,26 +158,28 @@ const serializeUser = (user) => {
 const changePassword = async (userDets, role, res) => {
   try {
     const password = await bcrypt.hash(userDets.password, 12);
-    const user = await User.findOneAndUpdate({"_id": ObjectId(userDets._id), "password": password });
+    const user = await User.findOneAndUpdate({
+      _id: ObjectId(userDets._id),
+      password: password,
+    });
     if (!user) {
       return res.status(404).json({
         message: "Unable to change password",
-        success: false
+        success: false,
       });
-    }  
+    }
     return res.status(201).json({
       message: "Password Changed successfully!",
-      success: true
+      success: true,
     });
   } catch (err) {
     // Implement logger function (winston)
     return res.status(500).json({
       message: "Unable to change password",
-      success: false
+      success: false,
     });
   }
 };
-
 
 module.exports = {
   userAuth,
@@ -179,5 +187,5 @@ module.exports = {
   userLogin,
   userRegister,
   serializeUser,
-  changePassword
+  changePassword,
 };
