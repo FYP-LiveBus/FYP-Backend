@@ -16,10 +16,10 @@ router.get("/countForGraph", async (req, res) => {
   const trip = await Trip.aggregate([
     {
       $project: {
-        _id: 0,
+        _id: 1,
         // accountID:1,
         date: 1,
-        PreviousDate: { $subtract: ["$date", 1000 * 60 * 60 * 24 * 30] },
+        PreviousDate: { $subtract: ["$date", 1000 * 60 * 60 * 24 * 7] },
       },
     },
     {

@@ -24,7 +24,8 @@ const StudentTripsDetail = mongoose.model(
       required: true,
     },
     date: {
-      type: String,
+      type: Date,
+      default: Date.now,
     },
   })
 );
