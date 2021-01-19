@@ -134,6 +134,23 @@ router.get(
   }
 );
 
+router.put("/updatePassword/:id", async (req, res) => {
+  const passcode = await bcrypt.hash(req.body.password, 12);
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    {
+      ...req.body,
+      password: passcode,
+    },
+    { new: true }
+  );
+
+  if (!user)
+    return res.status(404).send("The user with the given ID was not found.");
+
+  res.send(user);
+});
+
 // // Super Admin Protected Route
 // router.get(
 //   "/super-admin-and-admin-protectd",
