@@ -18,7 +18,7 @@ router.get("/countForGraph", async (req, res) => {
   const trip = await StudentTripsDetail.aggregate([
     {
       $group: {
-        _id: { routeNo: "$routeNo", date: "$date" },
+        _id: "$routeNo",
         count: { $sum: 1 },
       },
     },
