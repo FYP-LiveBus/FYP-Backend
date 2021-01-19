@@ -24,6 +24,7 @@ const Route = mongoose.model(
     ],
     driver: {
       type: String,
+      unique: true,
     },
     driverID: {
       type: String,
