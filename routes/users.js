@@ -37,6 +37,11 @@ router.post("/login-student", async (req, res) => {
   await userLogin(req.body, "student", res);
 });
 
+// Driver Login Route
+router.post("/login-driver", async (req, res) => {
+  await userLogin(req.body, "driver", res);
+});
+
 // Admin Login Route
 // router.post("/login-admin", async (req, res) => {
 //   await userLogin(req.body, "admin", res);
@@ -47,11 +52,6 @@ router.post("/login", async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
   const checkRole = user.role;
   await userLogin2(req.body, checkRole, res);
-});
-
-// Driver Login Route
-router.post("/login-driver", async (req, res) => {
-  await userLogin(req.body, "driver", res);
 });
 
 // Sub Admin Login Route
