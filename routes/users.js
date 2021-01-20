@@ -34,7 +34,7 @@ router.post("/register-driver", async (req, res) => {
 
 // Users Login Route
 router.post("/login-student", async (req, res) => {
-  await userLogin(req.body, "student", res);
+  await userLogin2(req.body, "student", res);
 });
 
 // Driver Login Route
