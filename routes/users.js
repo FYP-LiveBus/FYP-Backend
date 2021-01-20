@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const {
   userAuth,
   userLogin,
+  userLogin2,
   checkRole,
   userRegister,
   serializeUser,
@@ -45,7 +46,7 @@ router.post("/login-student", async (req, res) => {
 router.post("/login", async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
   const checkRole = user.role;
-  await userLogin(req.body, checkRole, res);
+  await userLogin2(req.body, checkRole, res);
 });
 
 // Driver Login Route
